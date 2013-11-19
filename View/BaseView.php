@@ -46,7 +46,7 @@ class BaseView implements ViewInterface
      * (non-PHPdoc)
      * @see \Crada\Apidoc\View\ViewInterface::__init()
      */
-    public function __init(){}
+    public function __init() {}
 
     /**
      * Set configuration params from the config file. Injected in
@@ -62,19 +62,19 @@ class BaseView implements ViewInterface
     /**
      * Get config param(s)
      *
-     * @param string $s_key
+     * @param  string       $s_key
      * @return string|array
      */
     public function getConfig($s_key = null)
     {
-        if($s_key)
-        {
-            if(isset($this->st_viewConfig[$s_key]))
-            {
+        if ($s_key) {
+            if (isset($this->st_viewConfig[$s_key])) {
                 return $this->st_viewConfig[$s_key];
             }
+
             return false;
         }
+
         return $this->st_viewConfig;
     }
 
@@ -98,18 +98,15 @@ class BaseView implements ViewInterface
 
     /**
      * Set parameters to render
-     * @param string $key
-     * @param mixed  $value Value - can be string / array
+     * @param string  $key
+     * @param mixed   $value     Value - can be string / array
      * @param boolean $b_skipKey If true, the value will be assign directly to $this->st_data
      */
     public function set($key, $value, $b_skipKey = false)
     {
-        if(true === $b_skipKey)
-        {
+        if (true === $b_skipKey) {
             $this->st_data = $value;
-        }
-        else
-        {
+        } else {
             $this->st_data[$key] = $value;
         }
     }
@@ -139,8 +136,7 @@ class BaseView implements ViewInterface
     public function render()
     {
         $file = str_replace('\\','/',$this->getTemplate()).'.php';
-        if (!file_exists($file))
-        {
+        if (!file_exists($file)) {
             throw new Exception("Template " . $file . " doesn't exist.");
         }
 

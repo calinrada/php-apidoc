@@ -42,7 +42,7 @@ class Builder
     private function extractAnnotations()
     {
         $extractor = new Extractor();
-        foreach($this->_st_classes as $class) {
+        foreach ($this->_st_classes as $class) {
             $st_output[] = $extractor->getAllClassAnnotations($class);
         }
 
@@ -56,13 +56,13 @@ class Builder
         $oldContent = file_get_contents($template);
         $newContent = str_replace("##content##", $data, $oldContent);
 
-        if(!is_dir($outputDir)) {
-            if(!mkdir($outputDir)){
+        if (!is_dir($outputDir)) {
+            if (!mkdir($outputDir)) {
                 throw new Exception("I can't create directory");
             }
         }
 
-        if(!file_put_contents($outputDir.'/index.html', $newContent)) {
+        if (!file_put_contents($outputDir.'/index.html', $newContent)) {
             throw new Exception("I can't save the content to $outputDir");
         }
     }
@@ -73,9 +73,8 @@ class Builder
 
         $template = '';
 
-        foreach($st_annotations as $class => $methods)
-        {
-            foreach($methods as $name => $docs) {
+        foreach ($st_annotations as $class => $methods) {
+            foreach ($methods as $name => $docs) {
                 if(count($docs) == 0) continue;
                 $template .= '
                     <div class="panel panel-default">
@@ -118,7 +117,7 @@ class Builder
 
     private function generateParamsTemplate($st_params)
     {
-        if(!isset($st_params['ApiParams'])) {
+        if (!isset($st_params['ApiParams'])) {
             return;
         }
 
@@ -128,7 +127,7 @@ class Builder
 
         $body = '';
 
-        foreach($st_params['ApiParams'] as $params) {
+        foreach ($st_params['ApiParams'] as $params) {
             $body .= '<tr><td>'.$params['name'].'</td>';
             $body .= '<td>'.$params['type'].'</td>';
             $body .= '<td>'.$params['nullable'].'</td>';

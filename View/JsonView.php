@@ -26,4 +26,3 @@ class JsonView extends BaseView
         $response->send($data);
     }
 }
-?>

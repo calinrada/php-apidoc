@@ -64,7 +64,7 @@ class Extractor
     /**
      * Gets all anotations with pattern @SomeAnnotation() from a given class
      *
-     * @param  string $className             class name to get annotations
+     * @param  string $className class name to get annotations
      * @return array  self::$annotationCache all annotated elements
      */
     public static function getClassAnnotations($className)
@@ -81,8 +81,8 @@ class Extractor
     {
         $class = new \ReflectionClass($className);
 
-        foreach($class->getMethods() as $object) {
-            if($object->class == $className) {
+        foreach ($class->getMethods() as $object) {
+            if ($object->class == $className) {
                 self::$annotationCache['annotations'][$className][$object->name] = self::getMethodAnnotations($className, $object->name);
             }
         }
@@ -93,8 +93,8 @@ class Extractor
     /**
      * Gets all anotations with pattern @SomeAnnotation() from a determinated method of a given class
      *
-     * @param  string $className             class name
-     * @param  string $methodName            method name to get annotations
+     * @param  string $className  class name
+     * @param  string $methodName method name to get annotations
      * @return array  self::$annotationCache all annotated elements of a method given
      */
     public static function getMethodAnnotations($className, $methodName)
@@ -117,8 +117,8 @@ class Extractor
      * Gets all anotations with pattern @SomeAnnotation() from a determinated method of a given class
      * and instance its abcAnnotation class
      *
-     * @param  string $className             class name
-     * @param  string $methodName            method name to get annotations
+     * @param  string $className  class name
+     * @param  string $methodName method name to get annotations
      * @return array  self::$annotationCache all annotated objects of a method given
      */
     public function getMethodAnnotationsObjects($className, $methodName)
@@ -165,7 +165,7 @@ class Extractor
      * Parse annotations
      *
      * @param  string $docblock
-     * @return array parsed annotations params
+     * @return array  parsed annotations params
      */
     private static function parseAnnotations($docblock)
     {
@@ -199,7 +199,7 @@ class Extractor
      * Parse individual annotation arguments
      *
      * @param  string $content arguments string
-     * @return array           annotated arguments
+     * @return array  annotated arguments
      */
     private static function parseArgs($content)
     {
@@ -338,7 +338,7 @@ class Extractor
      *
      * @param  string  $val  string containing possibles variables that can be cast to bool or int
      * @param  boolean $trim indicate if the value passed should be trimmed after to try cast
-     * @return mixed         returns the value converted to original type if was possible
+     * @return mixed   returns the value converted to original type if was possible
      */
     private static function castValue($val, $trim = false)
     {
