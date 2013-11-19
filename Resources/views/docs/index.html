@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>php-apidoc v 1.0</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/php-apidoc.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">php-apidoc</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a>
+                <input type="text">
+            </a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST createAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a new user
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>external_id</td><td>string</td><td></td><td>Client's user id</td></tr><tr><td>referer_id</td><td>integer</td><td>1</td><td>Solomo's user id (if the user was refered by an existing user)</td></tr><tr><td>email</td><td>string</td><td>1</td><td>Optional email of the user</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">GET getBalanceAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Returns the balance of user_id
+                                        <hr>
+                                        
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">GET getBetHistoryAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Returns the betting history of user_id
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>page</td><td>integer</td><td>1</td><td>Page of results</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">GET getRedeemHistoryAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Returns the betting history of user_id
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>page</td><td>integer</td><td>1</td><td>Page of results</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST loginAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a login activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>external_id</td><td>string</td><td></td><td>Client's user id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST likeAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a like activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>object_type</td><td>string</td><td></td><td>Object of the like [article|post]</td></tr><tr><td>object_id</td><td>integer</td><td></td><td>Client's object id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST articleAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register an article activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>article_id</td><td>integer</td><td></td><td>Client's article id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST postAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register an post activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>post_id</td><td>integer</td><td></td><td>Client's post id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST commentAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a comment activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>object_type</td><td>string</td><td></td><td>Object of the comment [article|post]</td></tr><tr><td>object_id</td><td>integer</td><td></td><td>Client's object id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST fbLinkedAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a 'facebook linking' activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST fbShareAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a 'facebook sharing' activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr><tr><td>article_id</td><td>integer</td><td></td><td>Client's unique article id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseOne">POST fbInviteAction </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="php-apidoctab">
+                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                       Register a 'facebook invite' activity
+                                        <hr>
+                                        <table class="table table-hover"><thead><tr><th>Name</th>
+         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
+         <tbody><tr><td>user_id</td><td>integer</td><td></td><td>Solomo's user id</td></tr></tbody></table>
+
+                                  </div>
+                                  <div class="tab-pane" id="sandbox">
+                                      <p>Soon...</p>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('#php-apidoctab a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+          })
+    })
+
+    </script>
+  </body>
+</html>
