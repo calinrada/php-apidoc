@@ -18,6 +18,13 @@ use Crada\Apidoc\Exception;
 class Builder
 {
     /**
+     * Version number
+     *
+     * @var string
+     */
+    const VERSION = '1.0.0';
+
+    /**
      * Classes collection
      *
      * @var array
@@ -54,7 +61,20 @@ class Builder
         $template   = __DIR__.'/Resources/views/template/index.html';
         $outputDir  = __DIR__.'/Resources/views/docs';
         $oldContent = file_get_contents($template);
-        $newContent = str_replace("##content##", $data, $oldContent);
+
+        $st_search = array(
+            "##content##",
+            "##date##",
+            "##version##"
+        );
+
+        $st_replace = array(
+            $data,
+            date("Y-m-d, H:i:s"),
+            static::VERSION
+        );
+
+        $newContent = str_replace($st_search, $st_replace, $oldContent);
 
         if (!is_dir($outputDir)) {
             if (!mkdir($outputDir)) {
@@ -72,6 +92,7 @@ class Builder
         $st_annotations = $this->extractAnnotations();
 
         $template = '';
+        $counter = 0;
 
         foreach ($st_annotations as $class => $methods) {
             foreach ($methods as $name => $docs) {
@@ -80,33 +101,34 @@ class Builder
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapseOne">'.strtoupper($docs['ApiMethod'][0]['type']).' '.$name.' </a>
+                                <a data-toggle="collapse" data-parent="#accordion'.$counter.'"
+                                    href="#collapseOne'.$counter.'">'.$this->generateBadgeForMethod($docs).' '.$name.' </a>
                             </h4>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
+                        <div id="collapseOne'.$counter.'" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab">
-                                  <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox" data-toggle="tab">Sandbox</a></li>
+                                <ul class="nav nav-tabs" id="php-apidoctab'.$counter.'">
+                                  <li class="active"><a href="#info'.$counter.'" data-toggle="tab">Info</a></li>
+                                  <li><a href="#sandbox'.$counter.'" data-toggle="tab">Sandbox</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                  <div class="tab-pane active" id="info">
+                                  <div class="tab-pane active" id="info'.$counter.'">
                                        '.$docs['ApiDescription'][0]['description'].'
                                         <hr>
                                         '.$this->generateParamsTemplate($docs).'
 
                                   </div>
-                                  <div class="tab-pane" id="sandbox">
+                                  <div class="tab-pane" id="sandbox'.$counter.'">
                                       <p>Soon...</p>
                                   </div>
                                 </div>
                             </div>
                         </div>
                     </div>';
+                $counter++;
             }
         }
 
@@ -115,6 +137,12 @@ class Builder
         return true;
     }
 
+    /**
+     * Generates the template for parameters
+     *
+     * @param  array       $st_params
+     * @return void|string
+     */
     private function generateParamsTemplate($st_params)
     {
         if (!isset($st_params['ApiParams'])) {
@@ -130,13 +158,35 @@ class Builder
         foreach ($st_params['ApiParams'] as $params) {
             $body .= '<tr><td>'.$params['name'].'</td>';
             $body .= '<td>'.$params['type'].'</td>';
-            $body .= '<td>'.$params['nullable'].'</td>';
+            $body .= '<td>'.($params['nullable']=='1' ? 'No' : 'Yes').'</td>';
             $body .= '<td>'.$params['description'].'</td></tr>';
         }
 
         $footer = '</tbody></table>';
 
         return $header.$body.$footer;
+    }
+
+    /**
+     * Generates a badge for method
+     *
+     * @param  array  $data
+     * @return string
+     */
+    private function generateBadgeForMethod($data)
+    {
+        $method = strtoupper($data['ApiMethod'][0]['type']);
+
+        $st_labels = array(
+            'POST' => 'label-primary',
+            'GET' => 'label-success',
+            'PUT' => 'label-warning',
+            'DELETE' => 'label-danger'
+        );
+
+        $template = '<span class="label '.$st_labels[$method].'">'.$method.'</span>';
+
+        return $template;
     }
 
     /**
