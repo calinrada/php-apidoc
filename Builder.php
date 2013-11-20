@@ -49,11 +49,12 @@ class Builder
     private function extractAnnotations()
     {
         $extractor = new Extractor();
+
         foreach ($this->_st_classes as $class) {
             $st_output[] = $extractor->getAllClassAnnotations($class);
         }
 
-        return $st_output[1];
+        return (count($this->_st_classes) == 1) ? $st_output[0] : $st_output[1];
     }
 
     private function saveTemplate($data)
