@@ -114,8 +114,8 @@ class Builder
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion'.$counter.'"
-                                    href="#collapseOne'.$counter.'">'.$this->generateBadgeForMethod($docs).' '.$name.' </a>
+                                '.$this->generateBadgeForMethod($docs).' <a data-toggle="collapse" data-parent="#accordion'.$counter.'"
+                                    href="#collapseOne'.$counter.'"> '.$docs['ApiRoute'][0]['name'].' </a>
                             </h4>
                         </div>
                         <div id="collapseOne'.$counter.'" class="panel-collapse collapse">
