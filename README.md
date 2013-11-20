@@ -32,7 +32,9 @@ class User
 {
     /**
      * @ApiDescription(section="User", description="Get information about user")
-     * @ApiMethod(type="get", route="/user/get/{id}")
+     * @ApiMethod(type="get")
+     * @ApiRoute(name="/user/get/{id}")
+     *
      * @ApiParams(name="id", type="integer", nullable=false, description="User id")
      */
     public function get()
@@ -42,7 +44,9 @@ class User
     
     /**
      * @ApiDescription(section="User", description="Create's a new user")
-     * @ApiMethod(type="post", route="/user/create")
+     * @ApiMethod(type="post")
+     * @ApiRoute(name="/user/create")
+     *
      * @ApiParams(name="username", type="string", nullable=false, description="Username")
      * @ApiParams(name="email", type="string", nullable=false, description="Email")
      * @ApiParams(name="password", type="string", nullable=false, description="Password")
