@@ -68,8 +68,10 @@ $st_classes = array(
     'Application\Api\MyOtherClass',
 );
 
+$s_output_dir = __DIR__.'/apidocs';
+
 try {
-    $builder = new Builder($st_classes);
+    $builder = new Builder($st_classes, $s_output_dir);
     $builder->generate();
 } catch (Exception $e) {
     echo "There was an error generating the documentation: ", $e->getMessage();
