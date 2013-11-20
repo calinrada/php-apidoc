@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="php-apidoc - apid documenation generator">
     <meta name="author" content="Calin Rada">
-    <title>php-apidoc v 1.2.1</title>
+    <title>php-apidoc v 1.2.4</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body      { padding-top: 70px; margin-bottom: 15px; }
@@ -46,144 +46,406 @@
 
     <div class="container">
         <div class="panel-group" id="accordion">
-            
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="label label-success">GET</span> <a data-toggle="collapse" data-parent="#accordion0"
-                                    href="#collapseOne0"> /user/get/{id} </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne0" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab0">
-                                  <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="info0">
-                                       Get information about user
-                                        <hr>
-                                        <table class="table table-hover"><thead><tr><th>Name</th>
-         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
-         <tbody><tr><td>id</td><td>integer</td><td>Yes</td><td>User id</td></tr></tbody></table>
-
-                                  </div>
-                                  <div class="tab-pane" id="sandbox0">
-                                      <p>Soon...</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion1"
-                                    href="#collapseOne1"> /user/create </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab1">
-                                  <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="info1">
-                                       Create's a new user
-                                        <hr>
-                                        <table class="table table-hover"><thead><tr><th>Name</th>
-         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
-         <tbody><tr><td>username</td><td>string</td><td>Yes</td><td>Username</td></tr><tr><td>email</td><td>string</td><td>Yes</td><td>Email</td></tr><tr><td>password</td><td>string</td><td>Yes</td><td>Password</td></tr><tr><td>age</td><td>integer</td><td>No</td><td>Age</td></tr></tbody></table>
-
-                                  </div>
-                                  <div class="tab-pane" id="sandbox1">
-                                      <p>Soon...</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="label label-danger">DELETE</span> <a data-toggle="collapse" data-parent="#accordion2"
-                                    href="#collapseOne2"> /user/delete </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab2">
-                                  <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="info2">
-                                       Delete a user
-                                        <hr>
-                                        <table class="table table-hover"><thead><tr><th>Name</th>
-         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
-         <tbody><tr><td>id</td><td>integer</td><td>Yes</td><td>User id</td></tr></tbody></table>
-
-                                  </div>
-                                  <div class="tab-pane" id="sandbox2">
-                                      <p>Soon...</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <span class="label label-warning">PUT</span> <a data-toggle="collapse" data-parent="#accordion3"
-                                    href="#collapseOne3"> /user/update </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab3">
-                                  <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="info3">
-                                       Delete a user
-                                        <hr>
-                                        <table class="table table-hover"><thead><tr><th>Name</th>
-         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
-         <tbody><tr><td>id</td><td>integer</td><td>Yes</td><td>User id</td></tr></tbody></table>
-
-                                  </div>
-                                  <div class="tab-pane" id="sandbox3">
-                                      <p>Soon...</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <h2>User</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-success">GET</span> <a data-toggle="collapse" data-parent="#accordion0" href="#collapseOne0"> /user/get/{id} </a>
+        </h4>
+    </div>
+    <div id="collapseOne0" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab0">
+              <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info0">
+                   Get information about user
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>User id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox0">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1"> /user/create </a>
+        </h4>
+    </div>
+    <div id="collapseOne1" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab1">
+              <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info1">
+                   Create's a new user
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>username</td>
+<td>string</td>
+<td>Yes</td>
+<td>Username</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Yes</td>
+<td>Email</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>Yes</td>
+<td>Password</td>
+</tr>
+<tr>
+<td>age</td>
+<td>integer</td>
+<td>No</td>
+<td>Age</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox1">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-danger">DELETE</span> <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2"> /user/delete </a>
+        </h4>
+    </div>
+    <div id="collapseOne2" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab2">
+              <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info2">
+                   Delete a user
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>User id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox2">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-warning">PUT</span> <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3"> /user/update </a>
+        </h4>
+    </div>
+    <div id="collapseOne3" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab3">
+              <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info3">
+                   Delete a user
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>User id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox3">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div><h2>Article</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-success">GET</span> <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4"> /article/get/{id} </a>
+        </h4>
+    </div>
+    <div id="collapseOne4" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab4">
+              <li class="active"><a href="#info4" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox4" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info4">
+                   Get article
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Article id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox4">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5"> /article/create </a>
+        </h4>
+    </div>
+    <div id="collapseOne5" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab5">
+              <li class="active"><a href="#info5" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox5" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info5">
+                   Create a new article
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>title</td>
+<td>string</td>
+<td>Yes</td>
+<td>Article title</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>Yes</td>
+<td>Article content</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>User id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox5">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-danger">DELETE</span> <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6"> /article/delete </a>
+        </h4>
+    </div>
+    <div id="collapseOne6" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab6">
+              <li class="active"><a href="#info6" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox6" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info6">
+                   Delete article
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Article id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox6">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <span class="label label-warning">PUT</span> <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7"> /article/update </a>
+        </h4>
+    </div>
+    <div id="collapseOne7" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab7">
+              <li class="active"><a href="#info7" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox7" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info7">
+                   Updates an article
+                    <hr>
+                    
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td>id</td>
+<td>integer</td>
+<td>Yes</td>
+<td>Article id</td>
+</tr>
+    </tbody>
+</table>
+              </div>
+              <div class="tab-pane" id="sandbox7">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
         <hr>
 
         <div class="row mt0 footer">
             <div class="col-md-6" align="left">
-                Generated on 2013-11-20, 14:26:27
+                Generated on 2013-11-20, 17:00:05
             </div>
             <div class="col-md-6" align="right">
-                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.2.1</a>
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.2.4</a>
             </div>
         </div>
 
