@@ -22,7 +22,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.0.1';
+    const VERSION = '1.1.0';
 
     /**
      * Classes collection
@@ -32,13 +32,21 @@ class Builder
     private $_st_classes;
 
     /**
+     * Output directory for documentation
+     *
+     * @var string
+     */
+    private $_output_dir;
+
+    /**
      * Constructor
      *
      * @param array $st_classes
      */
-    public function __construct(array $st_classes)
+    public function __construct(array $st_classes, $s_output_dir)
     {
         $this->_st_classes = $st_classes;
+        $this->_output_dir = $s_output_dir;
     }
 
     /**
@@ -60,7 +68,6 @@ class Builder
     private function saveTemplate($data)
     {
         $template   = __DIR__.'/Resources/views/template/index.html';
-        $outputDir  = __DIR__.'/Resources/views/docs';
         $oldContent = file_get_contents($template);
 
         $st_search = array(
@@ -77,17 +84,22 @@ class Builder
 
         $newContent = str_replace($st_search, $st_replace, $oldContent);
 
-        if (!is_dir($outputDir)) {
-            if (!mkdir($outputDir)) {
+        if (!is_dir($this->_output_dir)) {
+            if (!mkdir($this->_output_dir)) {
                 throw new Exception("I can't create directory");
             }
         }
 
-        if (!file_put_contents($outputDir.'/index.html', $newContent)) {
-            throw new Exception("I can't save the content to $outputDir");
+        if (!file_put_contents($this->_output_dir.'/index.html', $newContent)) {
+            throw new Exception("I can't save the content to $this->_output_dir");
         }
     }
 
+    /**
+     * Generate the content of the documentation
+     *
+     * @return boolean
+     */
     private function generateTemplate()
     {
         $st_annotations = $this->extractAnnotations();
