@@ -4,10 +4,10 @@
  */
 namespace Crada\Apidoc;
 
-use Crada\Apidoc\Extractor;
-use Crada\Apidoc\View;
-use Crada\Apidoc\View\JsonView;
-use Crada\Apidoc\Exception;
+use Crada\Apidoc\Extractor,
+    Crada\Apidoc\View,
+    Crada\Apidoc\View\JsonView,
+    Crada\Apidoc\Exception;
 
 /**
  * Crada\Apidoc\Builder
@@ -56,13 +56,11 @@ class Builder
      */
     private function extractAnnotations()
     {
-        $extractor = new Extractor();
-
         foreach ($this->_st_classes as $class) {
-            $st_output[] = $extractor->getAllClassAnnotations($class);
+            $st_output[] = Extractor::getAllClassAnnotations($class);
         }
 
-        return (count($this->_st_classes) == 1) ? $st_output[0] : $st_output[1];
+        return end($st_output);
     }
 
     private function saveTemplate($data)
@@ -71,14 +69,14 @@ class Builder
         $oldContent = file_get_contents($template);
 
         $st_search = array(
-            "##content##",
-            "##date##",
-            "##version##"
+            '##content##',
+            '##date##',
+            '##version##'
         );
 
         $st_replace = array(
             $data,
-            date("Y-m-d, H:i:s"),
+            date('Y-m-d, H:i:s'),
             static::VERSION
         );
 
@@ -86,12 +84,12 @@ class Builder
 
         if (!is_dir($this->_output_dir)) {
             if (!mkdir($this->_output_dir)) {
-                throw new Exception("I can't create directory");
+                throw new Exception('I can\'t create directory');
             }
         }
 
         if (!file_put_contents($this->_output_dir.'/index.html', $newContent)) {
-            throw new Exception("I can't save the content to $this->_output_dir");
+            throw new Exception('I can\'t save the content to $this->_output_dir');
         }
     }
 
@@ -106,45 +104,48 @@ class Builder
 
         $template = '';
         $counter = 0;
+        $section = null;
 
         foreach ($st_annotations as $class => $methods) {
             foreach ($methods as $name => $docs) {
-                if(count($docs) == 0) continue;
+                if(isset($docs['ApiDescription'][0]['section']) && $docs['ApiDescription'][0]['section'] !== $section) {
+                    $section = $docs['ApiDescription'][0]['section'];
+                    $template .= '<h2>'.$section.'</h2>';
+                }
+                if(0 === count($docs)) {
+                    continue;
+                }
                 $template .= '
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                '.$this->generateBadgeForMethod($docs).' <a data-toggle="collapse" data-parent="#accordion'.$counter.'"
-                                    href="#collapseOne'.$counter.'"> '.$docs['ApiRoute'][0]['name'].' </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne'.$counter.'" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs" id="php-apidoctab'.$counter.'">
-                                  <li class="active"><a href="#info'.$counter.'" data-toggle="tab">Info</a></li>
-                                  <li><a href="#sandbox'.$counter.'" data-toggle="tab">Sandbox</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="info'.$counter.'">
-                                       '.$docs['ApiDescription'][0]['description'].'
-                                        <hr>
-                                        '.$this->generateParamsTemplate($docs).'
-
-                                  </div>
-                                  <div class="tab-pane" id="sandbox'.$counter.'">
-                                      <p>Soon...</p>
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>';
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            '.$this->generateBadgeForMethod($docs).' <a data-toggle="collapse" data-parent="#accordion'.$counter.'" href="#collapseOne'.$counter.'"> '.$docs['ApiRoute'][0]['name'].' </a>
+        </h4>
+    </div>
+    <div id="collapseOne'.$counter.'" class="panel-collapse collapse">
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab'.$counter.'">
+              <li class="active"><a href="#info'.$counter.'" data-toggle="tab">Info</a></li>
+              <li><a href="#sandbox'.$counter.'" data-toggle="tab">Sandbox</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="info'.$counter.'">
+                   '.$docs['ApiDescription'][0]['description'].'
+                    <hr>
+                    '.$this->generateParamsTemplate($docs).'
+              </div>
+              <div class="tab-pane" id="sandbox'.$counter.'">
+                  <p>Soon...</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>';
                 $counter++;
             }
         }
-
         $this->saveTemplate($template);
 
         return true;
@@ -161,23 +162,31 @@ class Builder
         if (!isset($st_params['ApiParams'])) {
             return;
         }
-
-        $header = '<table class="table table-hover"><thead><tr><th>Name</th>
-         <th>Type</th><th>Required</th><th>Description</th></tr></thead>
-         <tbody>';
-
-        $body = '';
-
+        $tpl = '
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ body }}
+    </tbody>
+</table>';
+        $body = array();
         foreach ($st_params['ApiParams'] as $params) {
-            $body .= '<tr><td>'.$params['name'].'</td>';
-            $body .= '<td>'.$params['type'].'</td>';
-            $body .= '<td>'.($params['nullable']=='1' ? 'No' : 'Yes').'</td>';
-            $body .= '<td>'.$params['description'].'</td></tr>';
+            $body[] = '<tr>';
+            $body[] = '<td>'.$params['name'].'</td>';
+            $body[] = '<td>'.$params['type'].'</td>';
+            $body[] = '<td>'.($params['nullable'] == '1' ? 'No' : 'Yes').'</td>';
+            $body[] = '<td>'.$params['description'].'</td>';
+            $body[] = '</tr>';
         }
 
-        $footer = '</tbody></table>';
-
-        return $header.$body.$footer;
+        return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
     }
 
     /**
