@@ -6,6 +6,7 @@ Generate documentation for php API based application. No dependency. No framewor
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
+* [Preview](#preview)
 
 ### <a id="requirements"></a>Requirements
 
@@ -82,7 +83,9 @@ Then, execute it via CLI
 $ php apidoc.php
 ```
 
+### <a id="preview"></a>Preview
 
+You can see a dummy generated documentation on http://calinrada.github.io/php-apidoc/
 
 
 
