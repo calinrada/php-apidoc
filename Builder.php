@@ -22,7 +22,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.2.3';
+    const VERSION = '1.2.4';
 
     /**
      * Classes collection
