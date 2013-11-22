@@ -7,6 +7,8 @@ Generate documentation for php API based application. No dependency. No framewor
 * [Installation](#installation)
 * [Usage](#usage)
 * [Preview](#preview)
+* [Known issues](#knownissues)
+* [TODO](#todo)
 
 ### <a id="requirements"></a>Requirements
 
@@ -93,6 +95,13 @@ $ php apidoc.php
 
 You can see a dummy generated documentation on http://calinrada.github.io/php-apidoc/
 
+### <a id="knownissues"></a>Known issues
 
+I don't know any, but please tell me if you find something. PS: I have tested it only in Chrome !
 
+### <a id="todo"></a>TODO
+
+* Implemend "add headers" functionality for sandbox
+* Implement options for JSONP
+* Implement "add fields" option
 
