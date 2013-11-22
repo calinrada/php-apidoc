@@ -7,7 +7,7 @@ Generate documentation for php API based application. No dependency. No framewor
 * [Installation](#installation)
 * [Usage](#usage)
 * [Preview](#preview)
-* [Known issues](#knownissues)
+* [Known issues](#known-issues)
 * [TODO](#todo)
 
 ### <a id="requirements"></a>Requirements
