@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="php-apidoc - apid documenation generator">
     <meta name="author" content="Calin Rada">
-    <title>php-apidoc v 1.2.4</title>
+    <title>php-apidoc v 1.3.0</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body      { padding-top: 70px; margin-bottom: 15px; }
@@ -32,19 +32,29 @@
           <a class="navbar-brand" href="#">php-apidoc</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a>
-                <input type="text">
-            </a></li>
-          </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    Api key: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="Api key header with api key (key) and api key value (value) "><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="key" id="apikey_key">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="value" id="apikey_value">
+                </div>
+            </form>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Api URL</h5>
+                <input id="apiUrl" type="text" class="form-control input-sm" placeholder="http://api.mydomain.tld">
+            </div>
+        </div>
+        <hr>
         <div class="panel-group" id="accordion">
             <h2>User</h2>
 <div class="panel panel-default">
@@ -86,7 +96,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox0">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/user/get/{id}" method="get" name="form0" id="form0"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -149,7 +174,31 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox1">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/user/create" method="post" name="form1" id="form1"><div class="form-group">
+<input type="text" class="form-control input-sm" id="username" placeholder="username" name="username">
+</div>
+<div class="form-group">
+<input type="text" class="form-control input-sm" id="email" placeholder="email" name="email">
+</div>
+<div class="form-group">
+<input type="text" class="form-control input-sm" id="password" placeholder="password" name="password">
+</div>
+<div class="form-group">
+<input type="text" class="form-control input-sm" id="age" placeholder="age" name="age">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -194,7 +243,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox2">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/user/delete" method="delete" name="form2" id="form2"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -239,7 +303,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox3">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/user/update" method="put" name="form3" id="form3"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -284,7 +363,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox4">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/get/{id}" method="get" name="form4" id="form4"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -341,7 +435,28 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox5">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/create" method="post" name="form5" id="form5"><div class="form-group">
+<input type="text" class="form-control input-sm" id="title" placeholder="title" name="title">
+</div>
+<div class="form-group">
+<input type="text" class="form-control input-sm" id="content" placeholder="content" name="content">
+</div>
+<div class="form-group">
+<input type="text" class="form-control input-sm" id="user_id" placeholder="user_id" name="user_id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -386,7 +501,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox6">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/delete" method="delete" name="form6" id="form6"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -431,7 +561,22 @@
 </table>
               </div>
               <div class="tab-pane" id="sandbox7">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/update" method="put" name="form7" id="form7"><div class="form-group">
+<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+</div>
+<button type="submit" class="btn btn-success send">Send</button>
+</form>
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -442,10 +587,10 @@
 
         <div class="row mt0 footer">
             <div class="col-md-6" align="left">
-                Generated on 2013-11-20, 17:00:05
+                Generated on 2013-11-22, 13:09:38
             </div>
             <div class="col-md-6" align="right">
-                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.2.4</a>
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.0</a>
             </div>
         </div>
 
@@ -457,10 +602,51 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
+
         $('#php-apidoctab a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
-        })
+        });
+
+        $('.tooltipP').tooltip({placement:'bottom'});
+
+        $('body').on('click', '.send', function(e){
+            e.preventDefault();
+            var form = $(this).closest('form');
+            var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
+
+            if(matchedParamsInRoute) {
+                $("form#"+$(form).attr('id')+" input[type=text]").each(function(){
+                    var input = $(this);
+
+                    var index;
+                    for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                        var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
+                        if($(this).attr('id') == tmp) {
+                            var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
+                            $(form).attr('action', newFormAction);
+                        }
+                    }
+                });
+            };
+
+            var st_headers = {};
+            st_headers[$('#apikey_key').val()] = $('#apikey_value').val();
+            console.log(st_headers);
+
+            $.ajax({
+                url: $('#apiUrl').val()+$(form).attr('action'),
+                data: $(form).serialize(),
+                type: ''+$(form).attr('method')+'',
+                dataType: 'json',
+                headers: st_headers
+            }).done(function (data) {
+                console.log(data);
+            });
+
+            return false;
+        });
+
     })
     </script>
   </body>
