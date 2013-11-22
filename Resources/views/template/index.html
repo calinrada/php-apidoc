@@ -32,19 +32,29 @@
           <a class="navbar-brand" href="#">php-apidoc</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a>
-                <input type="text">
-            </a></li>
-          </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    Api key: <a href="javascript:void(0);" class="tooltipP" data-toggle="tooltip" title="Api key header with api key (key) and api key value (value) "><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="key" id="apikey_key">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="value" id="apikey_value">
+                </div>
+            </form>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Api URL</h5>
+                <input id="apiUrl" type="text" class="form-control input-sm" placeholder="http://api.mydomain.tld">
+            </div>
+        </div>
+        <hr>
         <div class="panel-group" id="accordion">
             ##content##
         </div>
@@ -67,10 +77,51 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
+
         $('#php-apidoctab a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
-        })
+        });
+
+        $('.tooltipP').tooltip({placement:'bottom'});
+
+        $('body').on('click', '.send', function(e){
+            e.preventDefault();
+            var form = $(this).closest('form');
+            var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
+
+            if(matchedParamsInRoute) {
+                $("form#"+$(form).attr('id')+" input[type=text]").each(function(){
+                    var input = $(this);
+
+                    var index;
+                    for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                        var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
+                        if($(this).attr('id') == tmp) {
+                            var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
+                            $(form).attr('action', newFormAction);
+                        }
+                    }
+                });
+            };
+
+            var st_headers = {};
+            st_headers[$('#apikey_key').val()] = $('#apikey_value').val();
+            console.log(st_headers);
+
+            $.ajax({
+                url: $('#apiUrl').val()+$(form).attr('action'),
+                data: $(form).serialize(),
+                type: ''+$(form).attr('method')+'',
+                dataType: 'json',
+                headers: st_headers
+            }).done(function (data) {
+                console.log(data);
+            });
+
+            return false;
+        });
+
     })
     </script>
   </body>

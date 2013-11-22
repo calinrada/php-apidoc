@@ -22,7 +22,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.2.4';
+    const VERSION = '1.3.0';
 
     /**
      * Classes collection
@@ -137,7 +137,18 @@ class Builder
                     '.$this->generateParamsTemplate($docs).'
               </div>
               <div class="tab-pane" id="sandbox'.$counter.'">
-                  <p>Soon...</p>
+                  <div class="row">
+                      <div class="col-md-6">
+                          Parameters
+                          <hr>
+                          '.$this->generateRouteParametersForm($docs, $counter).'
+                      </div>
+                      <div class="col-md-6">
+                          Headers
+                          <hr>
+                          Soon...
+                      </div>
+                  </div>
               </div>
             </div>
         </div>
@@ -185,6 +196,34 @@ class Builder
             $body[] = '<td>'.$params['description'].'</td>';
             $body[] = '</tr>';
         }
+
+        return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
+    }
+
+    /**
+     * Generate route paramteres form
+     *
+     * @param array $st_params
+     * @param integer $counter
+     * @return void|mixed
+     */
+    private function generateRouteParametersForm($st_params, $counter)
+    {
+        if (!isset($st_params['ApiParams'])) {
+            return;
+        }
+
+        $tpl = '<form enctype="application/x-www-form-urlencoded" role="form" action="'.$st_params['ApiRoute'][0]['name'].'" method="'.$st_params['ApiMethod'][0]['type'].'" name="form'.$counter.'" id="form'.$counter.'">{{ body }}';
+
+        $body = array();
+        foreach ($st_params['ApiParams'] as $params) {
+            $body[] = '<div class="form-group">';
+            $body[] = '<input type="text" class="form-control input-sm" id="'.$params['name'].'" placeholder="'.$params['name'].'" name="'.$params['name'].'">';
+            $body[] = '</div>';
+        }
+
+        $body[] = '<button type="submit" class="btn btn-success send">Send</button>';
+        $body[] = '</form>';
 
         return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
     }
