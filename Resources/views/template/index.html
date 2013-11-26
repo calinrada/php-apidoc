@@ -85,10 +85,13 @@
 
         $('.tooltipP').tooltip({placement:'bottom'});
 
+        $('code').hide();
+
         $('body').on('click', '.send', function(e){
             e.preventDefault();
             var form = $(this).closest('form');
             var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
+            var theId = $(this).attr('rel');
 
             if(matchedParamsInRoute) {
                 $("form#"+$(form).attr('id')+" input[type=text]").each(function(){
@@ -116,7 +119,13 @@
                 dataType: 'json',
                 headers: st_headers
             }).done(function (data) {
+                $('#response'+theId).html(JSON.stringify(data));
+                $('#response'+theId).show();
+
                 console.log(data);
+            }).error(function (xhr, textStatus, error){
+                $('#response'+theId).html(error);
+                $('#response'+theId).show();
             });
 
             return false;

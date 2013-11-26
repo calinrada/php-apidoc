@@ -108,11 +108,11 @@ class Builder
 
         foreach ($st_annotations as $class => $methods) {
             foreach ($methods as $name => $docs) {
-                if(isset($docs['ApiDescription'][0]['section']) && $docs['ApiDescription'][0]['section'] !== $section) {
+                if (isset($docs['ApiDescription'][0]['section']) && $docs['ApiDescription'][0]['section'] !== $section) {
                     $section = $docs['ApiDescription'][0]['section'];
                     $template .= '<h2>'.$section.'</h2>';
                 }
-                if(0 === count($docs)) {
+                if (0 === count($docs)) {
                     continue;
                 }
                 $template .= '
@@ -138,15 +138,20 @@ class Builder
               </div>
               <div class="tab-pane" id="sandbox'.$counter.'">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           '.$this->generateRouteParametersForm($docs, $counter).'
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response'.$counter.'"></code>
                       </div>
                   </div>
               </div>
@@ -203,8 +208,8 @@ class Builder
     /**
      * Generate route paramteres form
      *
-     * @param array $st_params
-     * @param integer $counter
+     * @param  array      $st_params
+     * @param  integer    $counter
      * @return void|mixed
      */
     private function generateRouteParametersForm($st_params, $counter)
@@ -222,7 +227,7 @@ class Builder
             $body[] = '</div>';
         }
 
-        $body[] = '<button type="submit" class="btn btn-success send">Send</button>';
+        $body[] = '<button type="submit" class="btn btn-success send" rel="'.$counter.'">Send</button>';
         $body[] = '</form>';
 
         return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
