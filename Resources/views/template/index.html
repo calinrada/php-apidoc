@@ -92,17 +92,20 @@
             var form = $(this).closest('form');
             var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
             var theId = $(this).attr('rel');
-
             if(matchedParamsInRoute) {
                 $("form#"+$(form).attr('id')+" input[type=text]").each(function(){
                     var input = $(this);
 
                     var index;
                     for (index = 0; index < matchedParamsInRoute.length; ++index) {
-                        var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
-                        if($(this).attr('id') == tmp) {
-                            var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
-                            $(form).attr('action', newFormAction);
+                        try {
+                            var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
+                            if($(this).attr('id') == tmp) {
+                                var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
+                                $(form).attr('action', newFormAction);
+                            }
+                        } catch(err) {
+                            console.log(err);
                         }
                     }
                 });
@@ -110,7 +113,6 @@
 
             var st_headers = {};
             st_headers[$('#apikey_key').val()] = $('#apikey_value').val();
-            console.log(st_headers);
 
             $.ajax({
                 url: $('#apiUrl').val()+$(form).attr('action'),
@@ -119,12 +121,14 @@
                 dataType: 'json',
                 headers: st_headers
             }).done(function (data) {
-                $('#response'+theId).html(JSON.stringify(data));
+                if(typeof data === 'object') {
+                    $('#response'+theId).html(JSON.stringify(data));
+                } else {
+                    $('#response'+theId).html(data);
+                }
                 $('#response'+theId).show();
-
-                console.log(data);
             }).error(function (xhr, textStatus, error){
-                $('#response'+theId).html(error);
+                $('#response'+theId).html(textStatus);
                 $('#response'+theId).show();
             });
 
