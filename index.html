@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="php-apidoc - apid documenation generator">
     <meta name="author" content="Calin Rada">
-    <title>php-apidoc v 1.3.0</title>
+    <title>php-apidoc v 1.3.2</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body      { padding-top: 70px; margin-bottom: 15px; }
@@ -97,19 +97,24 @@
               </div>
               <div class="tab-pane" id="sandbox0">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/user/get/{id}" method="get" name="form0" id="form0"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="0">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response0"></code>
                       </div>
                   </div>
               </div>
@@ -175,7 +180,7 @@
               </div>
               <div class="tab-pane" id="sandbox1">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/user/create" method="post" name="form1" id="form1"><div class="form-group">
@@ -190,13 +195,18 @@
 <div class="form-group">
 <input type="text" class="form-control input-sm" id="age" placeholder="age" name="age">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="1">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response1"></code>
                       </div>
                   </div>
               </div>
@@ -244,19 +254,24 @@
               </div>
               <div class="tab-pane" id="sandbox2">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/user/delete" method="delete" name="form2" id="form2"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="2">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response2"></code>
                       </div>
                   </div>
               </div>
@@ -304,19 +319,24 @@
               </div>
               <div class="tab-pane" id="sandbox3">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/user/update" method="put" name="form3" id="form3"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="3">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response3"></code>
                       </div>
                   </div>
               </div>
@@ -364,19 +384,24 @@
               </div>
               <div class="tab-pane" id="sandbox4">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/article/get/{id}" method="get" name="form4" id="form4"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="4">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response4"></code>
                       </div>
                   </div>
               </div>
@@ -436,7 +461,7 @@
               </div>
               <div class="tab-pane" id="sandbox5">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/article/create" method="post" name="form5" id="form5"><div class="form-group">
@@ -448,13 +473,18 @@
 <div class="form-group">
 <input type="text" class="form-control input-sm" id="user_id" placeholder="user_id" name="user_id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="5">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response5"></code>
                       </div>
                   </div>
               </div>
@@ -502,19 +532,24 @@
               </div>
               <div class="tab-pane" id="sandbox6">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/article/delete" method="delete" name="form6" id="form6"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="6">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response6"></code>
                       </div>
                   </div>
               </div>
@@ -562,19 +597,24 @@
               </div>
               <div class="tab-pane" id="sandbox7">
                   <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/article/update" method="put" name="form7" id="form7"><div class="form-group">
 <input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
 </div>
-<button type="submit" class="btn btn-success send">Send</button>
+<button type="submit" class="btn btn-success send" rel="7">Send</button>
 </form>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                           Headers
                           <hr>
                           Soon...
+                      </div>
+                      <div class="col-md-4">
+                          Response
+                          <hr>
+                          <code id="response7"></code>
                       </div>
                   </div>
               </div>
@@ -587,10 +627,10 @@
 
         <div class="row mt0 footer">
             <div class="col-md-6" align="left">
-                Generated on 2013-11-22, 13:09:38
+                Generated on 2013-11-26, 13:32:35
             </div>
             <div class="col-md-6" align="right">
-                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.0</a>
+                <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.2</a>
             </div>
         </div>
 
@@ -610,21 +650,28 @@
 
         $('.tooltipP').tooltip({placement:'bottom'});
 
+        $('code').hide();
+
         $('body').on('click', '.send', function(e){
             e.preventDefault();
             var form = $(this).closest('form');
             var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
-
+            var theId = $(this).attr('rel');
             if(matchedParamsInRoute) {
                 $("form#"+$(form).attr('id')+" input[type=text]").each(function(){
                     var input = $(this);
 
                     var index;
                     for (index = 0; index < matchedParamsInRoute.length; ++index) {
-                        var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
-                        if($(this).attr('id') == tmp) {
-                            var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
-                            $(form).attr('action', newFormAction);
+                        console.log(matchedParamsInRoute[index], matchedParamsInRoute);
+                        try {
+                            var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
+                            if($(this).attr('id') == tmp) {
+                                var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
+                                $(form).attr('action', newFormAction);
+                            }
+                        } catch(err) {
+                            console.log(err);
                         }
                     }
                 });
@@ -632,7 +679,6 @@
 
             var st_headers = {};
             st_headers[$('#apikey_key').val()] = $('#apikey_value').val();
-            console.log(st_headers);
 
             $.ajax({
                 url: $('#apiUrl').val()+$(form).attr('action'),
@@ -642,6 +688,15 @@
                 headers: st_headers
             }).done(function (data) {
                 console.log(data);
+                if(typeof data === 'object') {
+                    $('#response'+theId).html(JSON.stringify(data));
+                } else {
+                    $('#response'+theId).html(data);
+                }
+                $('#response'+theId).show();
+            }).error(function (xhr, textStatus, error){
+                $('#response'+theId).html(textStatus);
+                $('#response'+theId).show();
             });
 
             return false;
