@@ -7,7 +7,7 @@ class User
      * @ApiDescription(section="User", description="Get information about user")
      * @ApiMethod(type="get")
      * @ApiRoute(name="/user/get/{id}")
-     * @ApiParams(name="id", type="integer", nullable=false, description="User id")
+     * @ApiParams(name="data", type="object", sample="{'user_id':'int','external_id':'int','extra':{'type':'integer'}}")
      */
     public function get()
     {

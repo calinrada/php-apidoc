@@ -14,6 +14,11 @@
         .mt0      { margin-top: 0px; }
         .footer   { font-size: 12px; color: #666; }
         .label    { display: inline-block; min-width: 65px; padding: 0.3em 0.6em 0.3em; }
+        .string   { color: green; }
+        .number   { color: darkorange; }
+        .boolean  { color: blue; }
+        .null     { color: magenta; }
+        .key      { color: red; }
     </style>
   </head>
 
@@ -76,6 +81,29 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+             json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
     $(document).ready(function(){
 
         $('#php-apidoctab a').click(function (e) {
@@ -85,7 +113,18 @@
 
         $('.tooltipP').tooltip({placement:'bottom'});
 
-        $('code').hide();
+        $('code[id^=response]').hide();
+
+
+        $.each($('pre[id^=sample_response]'), function(){
+            console.log($(this).html());
+            if($(this).html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($(this).html().replace(/'/g,'"')), undefined, 6);
+            console.log(str);
+            $(this).html(syntaxHighlight(str));
+        });
 
         $('body').on('click', '.send', function(e){
             e.preventDefault();

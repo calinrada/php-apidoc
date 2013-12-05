@@ -115,6 +115,7 @@ class Builder
                 if (0 === count($docs)) {
                     continue;
                 }
+                $sample_output = $this->generateSampleOutput($docs);
                 $template .= '
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -128,6 +129,7 @@ class Builder
             <ul class="nav nav-tabs" id="php-apidoctab'.$counter.'">
               <li class="active"><a href="#info'.$counter.'" data-toggle="tab">Info</a></li>
               <li><a href="#sandbox'.$counter.'" data-toggle="tab">Sandbox</a></li>
+              <li><a href="#sample'.$counter.'" data-toggle="tab">Sample output</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -155,6 +157,15 @@ class Builder
                       </div>
                   </div>
               </div>
+              <div class="tab-pane" id="sample'.$counter.'">
+                  <div class="row">
+                      <div class="col-md-12">
+                          Sample output
+                          <hr>
+                          <pre id="sample_response'.$counter.'">'.$sample_output.'</pre>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -165,6 +176,27 @@ class Builder
         $this->saveTemplate($template);
 
         return true;
+    }
+
+    /**
+     * Generate the sample output
+     *
+     * @param array $st_params
+     * @return string
+     */
+    private function generateSampleOutput($st_params)
+    {
+        if (!isset($st_params['ApiParams'])) {
+            return 'NA';
+        }
+
+        foreach ($st_params['ApiParams'] as $params) {
+            if ($params['name'] == 'data') {
+                return $params['sample'];
+            }
+        }
+
+        return 'NA';
     }
 
     /**
@@ -197,8 +229,8 @@ class Builder
             $body[] = '<tr>';
             $body[] = '<td>'.$params['name'].'</td>';
             $body[] = '<td>'.$params['type'].'</td>';
-            $body[] = '<td>'.($params['nullable'] == '1' ? 'No' : 'Yes').'</td>';
-            $body[] = '<td>'.$params['description'].'</td>';
+            $body[] = '<td>'.(@$params['nullable'] == '1' ? 'No' : 'Yes').'</td>';
+            $body[] = '<td>'.@$params['description'].'</td>';
             $body[] = '</tr>';
         }
 
