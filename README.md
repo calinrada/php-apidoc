@@ -7,6 +7,7 @@ Generate documentation for php API based application. No dependency. No framewor
 * [Installation](#installation)
 * [Usage](#usage)
 * [Preview](#preview)
+* [Tips](#tips)
 * [Known issues](#known-issues)
 * [TODO](#todo)
 
@@ -38,6 +39,7 @@ class User
      * @ApiRoute(name="/user/get/{id}")
      *
      * @ApiParams(name="id", type="integer", nullable=false, description="User id")
+     * @ApiParams(name="data", type="object", sample="{'user_id':'int','user_name':'string','profile':{'email':'string','age':'integer'}}")
      */
     public function get()
     {
@@ -94,6 +96,14 @@ $ php apidoc.php
 ### <a id="preview"></a>Preview
 
 You can see a dummy generated documentation on http://calinrada.github.io/php-apidoc/
+
+### <a id="tips"></a>Tips
+
+To generate a sample output with the expected response use the ApiParam named "data":
+
+```php
+* @ApiParams(name="data", type="object", sample="{'user_id':'int','profile':{'email':'string','age':'integer'}}")
+```
 
 ### <a id="knownissues"></a>Known issues
 
