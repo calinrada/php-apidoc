@@ -14,6 +14,11 @@
         .mt0      { margin-top: 0px; }
         .footer   { font-size: 12px; color: #666; }
         .label    { display: inline-block; min-width: 65px; padding: 0.3em 0.6em 0.3em; }
+        .string   { color: green; }
+        .number   { color: darkorange; }
+        .boolean  { color: blue; }
+        .null     { color: magenta; }
+        .key      { color: red; }
     </style>
   </head>
 
@@ -69,6 +74,7 @@
             <ul class="nav nav-tabs" id="php-apidoctab0">
               <li class="active"><a href="#info0" data-toggle="tab">Info</a></li>
               <li><a href="#sandbox0" data-toggle="tab">Sandbox</a></li>
+              <li><a href="#sample0" data-toggle="tab">Sample output</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -87,10 +93,10 @@
     </thead>
     <tbody>
         <tr>
-<td>id</td>
-<td>integer</td>
+<td>data</td>
+<td>object</td>
 <td>Yes</td>
-<td>User id</td>
+<td></td>
 </tr>
     </tbody>
 </table>
@@ -101,7 +107,7 @@
                           Parameters
                           <hr>
                           <form enctype="application/x-www-form-urlencoded" role="form" action="/user/get/{id}" method="get" name="form0" id="form0"><div class="form-group">
-<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
+<input type="text" class="form-control input-sm" id="data" placeholder="data" name="data">
 </div>
 <button type="submit" class="btn btn-success send" rel="0">Send</button>
 </form>
@@ -115,6 +121,15 @@
                           Response
                           <hr>
                           <code id="response0"></code>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane" id="sample0">
+                  <div class="row">
+                      <div class="col-md-12">
+                          Sample output
+                          <hr>
+                          <pre id="sample_response0">{'user_id':'int','external_id':'int','extra':{'type':'integer'}}</pre>
                       </div>
                   </div>
               </div>
@@ -134,6 +149,7 @@
             <ul class="nav nav-tabs" id="php-apidoctab1">
               <li class="active"><a href="#info1" data-toggle="tab">Info</a></li>
               <li><a href="#sandbox1" data-toggle="tab">Sandbox</a></li>
+              <li><a href="#sample1" data-toggle="tab">Sample output</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -210,6 +226,15 @@
                       </div>
                   </div>
               </div>
+              <div class="tab-pane" id="sample1">
+                  <div class="row">
+                      <div class="col-md-12">
+                          Sample output
+                          <hr>
+                          <pre id="sample_response1">NA</pre>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -226,6 +251,7 @@
             <ul class="nav nav-tabs" id="php-apidoctab2">
               <li class="active"><a href="#info2" data-toggle="tab">Info</a></li>
               <li><a href="#sandbox2" data-toggle="tab">Sandbox</a></li>
+              <li><a href="#sample2" data-toggle="tab">Sample output</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -275,6 +301,15 @@
                       </div>
                   </div>
               </div>
+              <div class="tab-pane" id="sample2">
+                  <div class="row">
+                      <div class="col-md-12">
+                          Sample output
+                          <hr>
+                          <pre id="sample_response2">NA</pre>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -291,6 +326,7 @@
             <ul class="nav nav-tabs" id="php-apidoctab3">
               <li class="active"><a href="#info3" data-toggle="tab">Info</a></li>
               <li><a href="#sandbox3" data-toggle="tab">Sandbox</a></li>
+              <li><a href="#sample3" data-toggle="tab">Sample output</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -340,281 +376,12 @@
                       </div>
                   </div>
               </div>
-            </div>
-        </div>
-    </div>
-</div><h2>Article</h2>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <span class="label label-success">GET</span> <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4"> /article/get/{id} </a>
-        </h4>
-    </div>
-    <div id="collapseOne4" class="panel-collapse collapse">
-        <div class="panel-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="php-apidoctab4">
-              <li class="active"><a href="#info4" data-toggle="tab">Info</a></li>
-              <li><a href="#sandbox4" data-toggle="tab">Sandbox</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane active" id="info4">
-                   Get article
-                    <hr>
-                    
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td>id</td>
-<td>integer</td>
-<td>Yes</td>
-<td>Article id</td>
-</tr>
-    </tbody>
-</table>
-              </div>
-              <div class="tab-pane" id="sandbox4">
+              <div class="tab-pane" id="sample3">
                   <div class="row">
-                      <div class="col-md-4">
-                          Parameters
+                      <div class="col-md-12">
+                          Sample output
                           <hr>
-                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/get/{id}" method="get" name="form4" id="form4"><div class="form-group">
-<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
-</div>
-<button type="submit" class="btn btn-success send" rel="4">Send</button>
-</form>
-                      </div>
-                      <div class="col-md-4">
-                          Headers
-                          <hr>
-                          Soon...
-                      </div>
-                      <div class="col-md-4">
-                          Response
-                          <hr>
-                          <code id="response4"></code>
-                      </div>
-                  </div>
-              </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <span class="label label-primary">POST</span> <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5"> /article/create </a>
-        </h4>
-    </div>
-    <div id="collapseOne5" class="panel-collapse collapse">
-        <div class="panel-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="php-apidoctab5">
-              <li class="active"><a href="#info5" data-toggle="tab">Info</a></li>
-              <li><a href="#sandbox5" data-toggle="tab">Sandbox</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane active" id="info5">
-                   Create a new article
-                    <hr>
-                    
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td>title</td>
-<td>string</td>
-<td>Yes</td>
-<td>Article title</td>
-</tr>
-<tr>
-<td>content</td>
-<td>string</td>
-<td>Yes</td>
-<td>Article content</td>
-</tr>
-<tr>
-<td>user_id</td>
-<td>integer</td>
-<td>Yes</td>
-<td>User id</td>
-</tr>
-    </tbody>
-</table>
-              </div>
-              <div class="tab-pane" id="sandbox5">
-                  <div class="row">
-                      <div class="col-md-4">
-                          Parameters
-                          <hr>
-                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/create" method="post" name="form5" id="form5"><div class="form-group">
-<input type="text" class="form-control input-sm" id="title" placeholder="title" name="title">
-</div>
-<div class="form-group">
-<input type="text" class="form-control input-sm" id="content" placeholder="content" name="content">
-</div>
-<div class="form-group">
-<input type="text" class="form-control input-sm" id="user_id" placeholder="user_id" name="user_id">
-</div>
-<button type="submit" class="btn btn-success send" rel="5">Send</button>
-</form>
-                      </div>
-                      <div class="col-md-4">
-                          Headers
-                          <hr>
-                          Soon...
-                      </div>
-                      <div class="col-md-4">
-                          Response
-                          <hr>
-                          <code id="response5"></code>
-                      </div>
-                  </div>
-              </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <span class="label label-danger">DELETE</span> <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6"> /article/delete </a>
-        </h4>
-    </div>
-    <div id="collapseOne6" class="panel-collapse collapse">
-        <div class="panel-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="php-apidoctab6">
-              <li class="active"><a href="#info6" data-toggle="tab">Info</a></li>
-              <li><a href="#sandbox6" data-toggle="tab">Sandbox</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane active" id="info6">
-                   Delete article
-                    <hr>
-                    
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td>id</td>
-<td>integer</td>
-<td>Yes</td>
-<td>Article id</td>
-</tr>
-    </tbody>
-</table>
-              </div>
-              <div class="tab-pane" id="sandbox6">
-                  <div class="row">
-                      <div class="col-md-4">
-                          Parameters
-                          <hr>
-                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/delete" method="delete" name="form6" id="form6"><div class="form-group">
-<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
-</div>
-<button type="submit" class="btn btn-success send" rel="6">Send</button>
-</form>
-                      </div>
-                      <div class="col-md-4">
-                          Headers
-                          <hr>
-                          Soon...
-                      </div>
-                      <div class="col-md-4">
-                          Response
-                          <hr>
-                          <code id="response6"></code>
-                      </div>
-                  </div>
-              </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            <span class="label label-warning">PUT</span> <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7"> /article/update </a>
-        </h4>
-    </div>
-    <div id="collapseOne7" class="panel-collapse collapse">
-        <div class="panel-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="php-apidoctab7">
-              <li class="active"><a href="#info7" data-toggle="tab">Info</a></li>
-              <li><a href="#sandbox7" data-toggle="tab">Sandbox</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div class="tab-pane active" id="info7">
-                   Updates an article
-                    <hr>
-                    
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td>id</td>
-<td>integer</td>
-<td>Yes</td>
-<td>Article id</td>
-</tr>
-    </tbody>
-</table>
-              </div>
-              <div class="tab-pane" id="sandbox7">
-                  <div class="row">
-                      <div class="col-md-4">
-                          Parameters
-                          <hr>
-                          <form enctype="application/x-www-form-urlencoded" role="form" action="/article/update" method="put" name="form7" id="form7"><div class="form-group">
-<input type="text" class="form-control input-sm" id="id" placeholder="id" name="id">
-</div>
-<button type="submit" class="btn btn-success send" rel="7">Send</button>
-</form>
-                      </div>
-                      <div class="col-md-4">
-                          Headers
-                          <hr>
-                          Soon...
-                      </div>
-                      <div class="col-md-4">
-                          Response
-                          <hr>
-                          <code id="response7"></code>
+                          <pre id="sample_response3">NA</pre>
                       </div>
                   </div>
               </div>
@@ -627,7 +394,7 @@
 
         <div class="row mt0 footer">
             <div class="col-md-6" align="left">
-                Generated on 2013-11-26, 13:32:35
+                Generated on 2013-12-05, 21:10:28
             </div>
             <div class="col-md-6" align="right">
                 <a href="https://github.com/calinrada/php-apidoc" target="_blank">php-apidoc v 1.3.2</a>
@@ -641,6 +408,29 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+             json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
     $(document).ready(function(){
 
         $('#php-apidoctab a').click(function (e) {
@@ -650,7 +440,18 @@
 
         $('.tooltipP').tooltip({placement:'bottom'});
 
-        $('code').hide();
+        $('code[id^=response]').hide();
+
+
+        $.each($('pre[id^=sample_response]'), function(){
+            console.log($(this).html());
+            if($(this).html() == 'NA') {
+                return;
+            }
+            var str = JSON.stringify(JSON.parse($(this).html().replace(/'/g,'"')), undefined, 6);
+            console.log(str);
+            $(this).html(syntaxHighlight(str));
+        });
 
         $('body').on('click', '.send', function(e){
             e.preventDefault();
@@ -663,7 +464,6 @@
 
                     var index;
                     for (index = 0; index < matchedParamsInRoute.length; ++index) {
-                        console.log(matchedParamsInRoute[index], matchedParamsInRoute);
                         try {
                             var tmp = matchedParamsInRoute[index].replace('{','').replace('}','');
                             if($(this).attr('id') == tmp) {
@@ -687,7 +487,6 @@
                 dataType: 'json',
                 headers: st_headers
             }).done(function (data) {
-                console.log(data);
                 if(typeof data === 'object') {
                     $('#response'+theId).html(JSON.stringify(data));
                 } else {
