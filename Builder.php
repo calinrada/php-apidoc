@@ -22,7 +22,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.3.2';
+    const VERSION = '1.3.3';
 
     /**
      * Classes collection
@@ -237,7 +237,7 @@ class Builder
             $body[] = '<td>'.$params['type'];
             // if there is a sample input object, show it in a popover
             if ('data' === $params['name'] && isset($params['sample'])) {
-                $body[] = ' <a href="#" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="'.$params['sample'].'"><i class="btn glyphicon glyphicon-exclamation-sign"></i></a>';
+                $body[] = ' <a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="'.$params['sample'].'"><i class="btn glyphicon glyphicon-exclamation-sign"></i></a>';
             }
             $body[] = '</td>';
 

@@ -19,7 +19,7 @@
         .boolean  { color: blue; }
         .null     { color: magenta; }
         .key      { color: red; }
-        .popover  { max-width: 400px; max-height: 400px; overflow: scroll;}
+        .popover  { max-width: 400px; max-height: 400px; overflow-y: auto;}
     </style>
 </head>
 <body>
@@ -121,7 +121,7 @@
             $(this).html(syntaxHighlight(str));
         });
 
-        $("[data-toggle=popover]").popover();
+        $("[data-toggle=popover]").popover({placement:'right'});
 
         $('body').on('shown.bs.popover', function() {
             var $sample = $(this).find(".popover-content");
