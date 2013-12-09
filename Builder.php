@@ -89,7 +89,7 @@ class Builder
         }
 
         if (!file_put_contents($this->_output_dir.'/index.html', $newContent)) {
-            throw new Exception('I can\'t save the content to $this->_output_dir');
+            throw new Exception('I can\'t save the content to '.$this->_output_dir);
         }
     }
 
@@ -115,7 +115,8 @@ class Builder
                 if (0 === count($docs)) {
                     continue;
                 }
-                $sample_output = $this->generateSampleOutput($docs);
+                // $sample_output = $this->generateSampleOutput($docs);
+
                 $template .= '
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -133,39 +134,42 @@ class Builder
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-              <div class="tab-pane active" id="info'.$counter.'">
+                <div class="tab-pane active" id="info'.$counter.'">
                    '.$docs['ApiDescription'][0]['description'].'
                     <hr>
-                    '.$this->generateParamsTemplate($docs).'
-              </div>
-              <div class="tab-pane" id="sandbox'.$counter.'">
-                  <div class="row">
-                      <div class="col-md-4">
-                          Parameters
-                          <hr>
-                          '.$this->generateRouteParametersForm($docs, $counter).'
-                      </div>
-                      <div class="col-md-4">
-                          Headers
-                          <hr>
-                          Soon...
-                      </div>
-                      <div class="col-md-4">
-                          Response
-                          <hr>
-                          <code id="response'.$counter.'"></code>
-                      </div>
-                  </div>
-              </div>
-              <div class="tab-pane" id="sample'.$counter.'">
-                  <div class="row">
-                      <div class="col-md-12">
-                          Sample output
-                          <hr>
-                          <pre id="sample_response'.$counter.'">'.$sample_output.'</pre>
-                      </div>
-                  </div>
-              </div>
+                    '.$this->generateParamsTemplate($counter, $docs).'
+                </div>
+                <div class="tab-pane" id="sandbox'.$counter.'">
+                    <div class="row">
+                        <div class="col-md-4">
+                            Parameters
+                            <hr>
+                            '.$this->generateRouteParametersForm($docs, $counter).'
+                        </div>
+                        <div class="col-md-4">
+                            Headers
+                            <hr>
+                            Soon...
+                        </div>
+                        <div class="col-md-4">
+                            Response
+                            <hr>
+                            <code id="response'.$counter.'"></code>
+                        </div>
+                    </div>
+                </div>';
+                /*
+                <div class="tab-pane" id="sample'.$counter.'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Sample output
+                            <hr>
+                            <pre id="sample_response'.$counter.'">'.$sample_output.'</pre>
+                        </div>
+                    </div>
+                </div>
+                */
+              $template .= '
             </div>
         </div>
     </div>
@@ -181,7 +185,7 @@ class Builder
     /**
      * Generate the sample output
      *
-     * @param array $st_params
+     * @param  array  $st_params
      * @return string
      */
     private function generateSampleOutput($st_params)
@@ -191,7 +195,7 @@ class Builder
         }
 
         foreach ($st_params['ApiParams'] as $params) {
-            if ($params['name'] == 'data') {
+            if ('data' === $params['name'] && isset($params['sample'])) {
                 return $params['sample'];
             }
         }
@@ -202,10 +206,11 @@ class Builder
     /**
      * Generates the template for parameters
      *
+     * @param  int         $id
      * @param  array       $st_params
      * @return void|string
      */
-    private function generateParamsTemplate($st_params)
+    private function generateParamsTemplate($id, $st_params)
     {
         if (!isset($st_params['ApiParams'])) {
             return;
@@ -228,7 +233,14 @@ class Builder
         foreach ($st_params['ApiParams'] as $params) {
             $body[] = '<tr>';
             $body[] = '<td>'.$params['name'].'</td>';
-            $body[] = '<td>'.$params['type'].'</td>';
+
+            $body[] = '<td>'.$params['type'];
+            // if there is a sample input object, show it in a popover
+            if ('data' === $params['name'] && isset($params['sample'])) {
+                $body[] = ' <a href="#" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="'.$params['sample'].'"><i class="btn glyphicon glyphicon-exclamation-sign"></i></a>';
+            }
+            $body[] = '</td>';
+
             $body[] = '<td>'.(@$params['nullable'] == '1' ? 'No' : 'Yes').'</td>';
             $body[] = '<td>'.@$params['description'].'</td>';
             $body[] = '</tr>';
@@ -250,7 +262,10 @@ class Builder
             return;
         }
 
-        $tpl = '<form enctype="application/x-www-form-urlencoded" role="form" action="'.$st_params['ApiRoute'][0]['name'].'" method="'.$st_params['ApiMethod'][0]['type'].'" name="form'.$counter.'" id="form'.$counter.'">{{ body }}';
+        $tpl = '<form enctype="application/x-www-form-urlencoded" role="form" action="'.$st_params['ApiRoute'][0]['name'].'" method="'.$st_params['ApiMethod'][0]['type'].'" name="form'.$counter.'" id="form'.$counter.'">
+    {{ body }}
+    <button type="submit" class="btn btn-success send" rel="'.$counter.'">Send</button>
+</form>';
 
         $body = array();
         foreach ($st_params['ApiParams'] as $params) {
@@ -258,9 +273,6 @@ class Builder
             $body[] = '<input type="text" class="form-control input-sm" id="'.$params['name'].'" placeholder="'.$params['name'].'" name="'.$params['name'].'">';
             $body[] = '</div>';
         }
-
-        $body[] = '<button type="submit" class="btn btn-success send" rel="'.$counter.'">Send</button>';
-        $body[] = '</form>';
 
         return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
     }
@@ -274,17 +286,14 @@ class Builder
     private function generateBadgeForMethod($data)
     {
         $method = strtoupper($data['ApiMethod'][0]['type']);
-
         $st_labels = array(
-            'POST' => 'label-primary',
-            'GET' => 'label-success',
-            'PUT' => 'label-warning',
+            'POST'   => 'label-primary',
+            'GET'    => 'label-success',
+            'PUT'    => 'label-warning',
             'DELETE' => 'label-danger'
         );
 
-        $template = '<span class="label '.$st_labels[$method].'">'.$method.'</span>';
-
-        return $template;
+        return '<span class="label '.$st_labels[$method].'">'.$method.'</span>';
     }
 
     /**
