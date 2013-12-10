@@ -43,9 +43,9 @@ class User
      */
     public function get()
     {
-    
+
     }
-    
+
     /**
      * @ApiDescription(section="User", description="Create's a new user")
      * @ApiMethod(type="post")
@@ -58,8 +58,8 @@ class User
      */
     public function create()
     {
-    
-    }    
+
+    }
 }
 ```
 
@@ -99,7 +99,7 @@ You can see a dummy generated documentation on http://calinrada.github.io/php-ap
 
 ### <a id="tips"></a>Tips
 
-To generate a sample output with the expected response use the ApiParam named "data":
+To generate complex object sample input, use the ApiParam named "data":
 
 ```php
 * @ApiParams(name="data", type="object", sample="{'user_id':'int','profile':{'email':'string','age':'integer'}}")
