@@ -175,7 +175,7 @@ class Builder
                 '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
                 '{{ description }}' => @$params['description'],
             );
-            if ('data' === $params['name'] && isset($params['sample'])) {
+            if (in_array($params['type'], array('object', 'array(object)', 'array')) && isset($params['sample'])) {
                 $tr['{{ type }}'].= ' '.strtr(static::$paramSampleBtnTpl, array('{{ sample }}' => $params['sample']));
             }
             $body[] = strtr(static::$paramContentTpl, $tr);

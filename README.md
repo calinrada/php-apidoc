@@ -99,7 +99,7 @@ You can see a dummy generated documentation on http://calinrada.github.io/php-ap
 
 ### <a id="tips"></a>Tips
 
-To generate complex object sample input, use the ApiParam named "data":
+To generate complex object sample input, use the ApiParam "type=(object|array(object)|array)":
 
 ```php
 * @ApiParams(name="data", type="object", sample="{'user_id':'int','profile':{'email':'string','age':'integer'}}")
