@@ -123,7 +123,7 @@ class Builder
                     '{{ description }}'     => $docs['ApiDescription'][0]['description'],
                     '{{ parameters }}'      => $this->generateParamsTemplate($counter, $docs),
                     '{{ sandbox_form }}'    => $this->generateRouteParametersForm($docs, $counter),
-                    '{{ sample_response }}' => $this->generateSampleOutput($docs),
+                    '{{ sample_response }}' => $this->generateSampleOutput($docs, $counter),
                 );
                 $template[] = strtr(static::$mainTpl, $tr);
                 $counter++;
@@ -137,22 +137,30 @@ class Builder
     /**
      * Generate the sample output
      *
-     * @param  array  $st_params
+     * @param  array   $st_params
+     * @param  integer $counter
      * @return string
      */
-    private function generateSampleOutput($st_params)
+    private function generateSampleOutput($st_params, $counter)
     {
-        if (!isset($st_params['ApiParams'])) {
+        if (!isset($st_params['ApiReturn'])) {
             return 'NA';
         }
-
-        foreach ($st_params['ApiParams'] as $params) {
-            if ('data' === $params['name'] && isset($params['sample'])) {
-                return $params['sample'];
+        $ret = array();
+        foreach ($st_params['ApiReturn'] as $params) {
+            if (in_array($params['type'], array('object', 'array(object) ', 'array')) && isset($params['sample'])) {
+                $tr = array(
+                    '{{ response }}' => $params['sample'],
+                    '{{ description }}' => '',
+                );
+                if (isset($params['description'])) {
+                    $tr['{{ description }}'] = $params['description'];
+                }
+                $ret[] = strtr(static::$sampleReponseTpl, $tr);
             }
         }
 
-        return 'NA';
+        return implode(PHP_EOL, $ret);
     }
 
     /**
@@ -175,7 +183,7 @@ class Builder
                 '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
                 '{{ description }}' => @$params['description'],
             );
-            if (in_array($params['type'], array('object', 'array(object)', 'array')) && isset($params['sample'])) {
+            if (in_array($params['type'], array('object', 'array(object) ', 'array')) && isset($params['sample'])) {
                 $tr['{{ type }}'].= ' '.strtr(static::$paramSampleBtnTpl, array('{{ sample }}' => $params['sample']));
             }
             $body[] = strtr(static::$paramContentTpl, $tr);
@@ -309,9 +317,7 @@ class Builder
                 <div class="tab-pane" id="sample{{ elt_id }}">
                     <div class="row">
                         <div class="col-md-12">
-                            Sample output
-                            <hr>
-                            <pre id="sample_response{{ elt_id }}">{{ sample_response }}</pre>
+                            {{ sample_response }}
                         </div>
                     </div>
                 </div><!-- #sample -->
@@ -320,6 +326,12 @@ class Builder
         </div>
     </div>
 </div>';
+
+        static $sampleReponseTpl = '
+{{ description }}
+<hr>
+<pre id="sample_response{{ elt_id }}">{{ response }}</pre>';
+
         static $paramTableTpl = '
 <table class="table table-hover">
     <thead>
@@ -334,6 +346,7 @@ class Builder
         {{ tbody }}
     </tbody>
 </table>';
+
         static $paramContentTpl = '
 <tr>
     <td>{{ name }}</td>
@@ -341,10 +354,12 @@ class Builder
     <td>{{ nullable }}</td>
     <td>{{ description }}</td>
 </tr>';
+
         static $paramSampleBtnTpl = '
 <a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="{{ sample }}">
     <i class="btn glyphicon glyphicon-exclamation-sign"></i>
 </a>';
+
         static $sandboxFormTpl = '
 <form enctype="application/x-www-form-urlencoded" role="form" action="{{ route }}" method="{{ method }}" name="form{{ elt_id }}" id="form{{ elt_id }}">
     {{ body }}
