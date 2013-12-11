@@ -39,14 +39,22 @@ class Builder
     private $_output_dir;
 
     /**
+     * Output filename for documentation
+     *
+     * @var string
+     */
+    private $_output_file;
+
+    /**
      * Constructor
      *
      * @param array $st_classes
      */
-    public function __construct(array $st_classes, $s_output_dir)
+    public function __construct(array $st_classes, $s_output_dir, $s_output_file = 'index.html')
     {
         $this->_st_classes = $st_classes;
         $this->_output_dir = $s_output_dir;
+        $this->_output_file = $s_output_file;
     }
 
     /**
@@ -63,24 +71,17 @@ class Builder
         return end($st_output);
     }
 
-    private function saveTemplate($data)
+    private function saveTemplate($data, $file)
     {
         $template   = __DIR__.'/Resources/views/template/index.html';
         $oldContent = file_get_contents($template);
 
-        $st_search = array(
-            '##content##',
-            '##date##',
-            '##version##'
+        $tr = array(
+            '{{ content }}' => $data,
+            '{{ date }}'    => date('Y-m-d, H:i:s'),
+            '{{ version }}' => static::VERSION,
         );
-
-        $st_replace = array(
-            $data,
-            date('Y-m-d, H:i:s'),
-            static::VERSION
-        );
-
-        $newContent = str_replace($st_search, $st_replace, $oldContent);
+        $newContent = strtr($oldContent, $tr);
 
         if (!is_dir($this->_output_dir)) {
             if (!mkdir($this->_output_dir)) {
@@ -88,7 +89,7 @@ class Builder
             }
         }
 
-        if (!file_put_contents($this->_output_dir.'/index.html', $newContent)) {
+        if (!file_put_contents($this->_output_dir.'/'.$file, $newContent)) {
             throw new Exception('I can\'t save the content to '.$this->_output_dir);
         }
     }
@@ -102,7 +103,7 @@ class Builder
     {
         $st_annotations = $this->extractAnnotations();
 
-        $template = '';
+        $template = array();
         $counter = 0;
         $section = null;
 
@@ -110,74 +111,25 @@ class Builder
             foreach ($methods as $name => $docs) {
                 if (isset($docs['ApiDescription'][0]['section']) && $docs['ApiDescription'][0]['section'] !== $section) {
                     $section = $docs['ApiDescription'][0]['section'];
-                    $template .= '<h2>'.$section.'</h2>';
+                    $template[] = '<h2>'.$section.'</h2>';
                 }
                 if (0 === count($docs)) {
                     continue;
                 }
-                // $sample_output = $this->generateSampleOutput($docs);
-
-                $template .= '
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">
-            '.$this->generateBadgeForMethod($docs).' <a data-toggle="collapse" data-parent="#accordion'.$counter.'" href="#collapseOne'.$counter.'"> '.$docs['ApiRoute'][0]['name'].' </a>
-        </h4>
-    </div>
-    <div id="collapseOne'.$counter.'" class="panel-collapse collapse">
-        <div class="panel-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="php-apidoctab'.$counter.'">
-              <li class="active"><a href="#info'.$counter.'" data-toggle="tab">Info</a></li>
-              <li><a href="#sandbox'.$counter.'" data-toggle="tab">Sandbox</a></li>
-              <li><a href="#sample'.$counter.'" data-toggle="tab">Sample output</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="info'.$counter.'">
-                   '.$docs['ApiDescription'][0]['description'].'
-                    <hr>
-                    '.$this->generateParamsTemplate($counter, $docs).'
-                </div>
-                <div class="tab-pane" id="sandbox'.$counter.'">
-                    <div class="row">
-                        <div class="col-md-4">
-                            Parameters
-                            <hr>
-                            '.$this->generateRouteParametersForm($docs, $counter).'
-                        </div>
-                        <div class="col-md-4">
-                            Headers
-                            <hr>
-                            Soon...
-                        </div>
-                        <div class="col-md-4">
-                            Response
-                            <hr>
-                            <code id="response'.$counter.'"></code>
-                        </div>
-                    </div>
-                </div>';
-                /*
-                <div class="tab-pane" id="sample'.$counter.'">
-                    <div class="row">
-                        <div class="col-md-12">
-                            Sample output
-                            <hr>
-                            <pre id="sample_response'.$counter.'">'.$sample_output.'</pre>
-                        </div>
-                    </div>
-                </div>
-                */
-              $template .= '
-            </div>
-        </div>
-    </div>
-</div>';
+                $tr = array(
+                    '{{ elt_id }}'          => $counter,
+                    '{{ method }}'          => $this->generateBadgeForMethod($docs),
+                    '{{ route }}'           => $docs['ApiRoute'][0]['name'],
+                    '{{ description }}'     => $docs['ApiDescription'][0]['description'],
+                    '{{ parameters }}'      => $this->generateParamsTemplate($counter, $docs),
+                    '{{ sandbox_form }}'    => $this->generateRouteParametersForm($docs, $counter),
+                    '{{ sample_response }}' => $this->generateSampleOutput($docs),
+                );
+                $template[] = strtr(static::$mainTpl, $tr);
                 $counter++;
             }
         }
-        $this->saveTemplate($template);
+        $this->saveTemplate(implode(PHP_EOL, $template), $this->_output_file);
 
         return true;
     }
@@ -215,38 +167,21 @@ class Builder
         if (!isset($st_params['ApiParams'])) {
             return;
         }
-        $tpl = '
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{ body }}
-    </tbody>
-</table>';
         $body = array();
         foreach ($st_params['ApiParams'] as $params) {
-            $body[] = '<tr>';
-            $body[] = '<td>'.$params['name'].'</td>';
-
-            $body[] = '<td>'.$params['type'];
-            // if there is a sample input object, show it in a popover
-            if ('data' === $params['name'] && isset($params['sample'])) {
-                $body[] = ' <a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="'.$params['sample'].'"><i class="btn glyphicon glyphicon-exclamation-sign"></i></a>';
+            $tr = array(
+                '{{ name }}'        => $params['name'],
+                '{{ type }}'        => $params['type'],
+                '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
+                '{{ description }}' => @$params['description'],
+            );
+            if (in_array($params['type'], array('object', 'array(object)', 'array')) && isset($params['sample'])) {
+                $tr['{{ type }}'].= ' '.strtr(static::$paramSampleBtnTpl, array('{{ sample }}' => $params['sample']));
             }
-            $body[] = '</td>';
-
-            $body[] = '<td>'.(@$params['nullable'] == '1' ? 'No' : 'Yes').'</td>';
-            $body[] = '<td>'.@$params['description'].'</td>';
-            $body[] = '</tr>';
+            $body[] = strtr(static::$paramContentTpl, $tr);
         }
 
-        return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
+        return strtr(static::$paramTableTpl, array('{{ tbody }}' => implode(PHP_EOL, $body)));
     }
 
     /**
@@ -261,20 +196,18 @@ class Builder
         if (!isset($st_params['ApiParams'])) {
             return;
         }
-
-        $tpl = '<form enctype="application/x-www-form-urlencoded" role="form" action="'.$st_params['ApiRoute'][0]['name'].'" method="'.$st_params['ApiMethod'][0]['type'].'" name="form'.$counter.'" id="form'.$counter.'">
-    {{ body }}
-    <button type="submit" class="btn btn-success send" rel="'.$counter.'">Send</button>
-</form>';
-
         $body = array();
         foreach ($st_params['ApiParams'] as $params) {
-            $body[] = '<div class="form-group">';
-            $body[] = '<input type="text" class="form-control input-sm" id="'.$params['name'].'" placeholder="'.$params['name'].'" name="'.$params['name'].'">';
-            $body[] = '</div>';
+            $body[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $params['name']));
         }
+        $tr = array(
+            '{{ elt_id }}' => $counter,
+            '{{ method }}' => $st_params['ApiMethod'][0]['type'],
+            '{{ route }}'  => $st_params['ApiRoute'][0]['name'],
+            '{{ body }}'   => implode(PHP_EOL, $body),
+        );
 
-        return str_replace('{{ body }}', implode(PHP_EOL, $body), $tpl);
+        return strtr(static::$sandboxFormTpl, $tr);
     }
 
     /**
@@ -327,4 +260,99 @@ class Builder
     {
         return $this->generateTemplate();
     }
+
+    public static $mainTpl = '
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            {{ method }} <a data-toggle="collapse" data-parent="#accordion{{ elt_id }}" href="#collapseOne{{ elt_id }}"> {{ route }}</a>
+        </h4>
+    </div>
+    <div id="collapseOne{{ elt_id }}" class="panel-collapse collapse">
+        <div class="panel-body">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="php-apidoctab{{ elt_id }}">
+                <li class="active"><a href="#info{{ elt_id }}" data-toggle="tab">Info</a></li>
+                <li><a href="#sandbox{{ elt_id }}" data-toggle="tab">Sandbox</a></li>
+                <li><a href="#sample{{ elt_id }}" data-toggle="tab">Sample output</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="info{{ elt_id }}">
+                    {{ description }}
+                    <hr>
+                    {{ parameters }}
+                </div><!-- #info -->
+
+                <div class="tab-pane" id="sandbox{{ elt_id }}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            Parameters
+                            <hr>
+                            {{ sandbox_form }}
+                        </div>
+                        <div class="col-md-4">
+                            Headers
+                            <hr>Soon...
+                        </div>
+                        <div class="col-md-4">
+                            Response
+                            <hr>
+                            <code id="response{{ elt_id }}"></code>
+                        </div>
+                    </div>
+                </div><!-- #sandbox -->
+
+                <div class="tab-pane" id="sample{{ elt_id }}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Sample output
+                            <hr>
+                            <pre id="sample_response{{ elt_id }}">{{ sample_response }}</pre>
+                        </div>
+                    </div>
+                </div><!-- #sample -->
+
+            </div><!-- .tab-content -->
+        </div>
+    </div>
+</div>';
+        static $paramTableTpl = '
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ tbody }}
+    </tbody>
+</table>';
+        static $paramContentTpl = '
+<tr>
+    <td>{{ name }}</td>
+    <td>{{ type }}</td>
+    <td>{{ nullable }}</td>
+    <td>{{ description }}</td>
+</tr>';
+        static $paramSampleBtnTpl = '
+<a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="{{ sample }}">
+    <i class="btn glyphicon glyphicon-exclamation-sign"></i>
+</a>';
+        static $sandboxFormTpl = '
+<form enctype="application/x-www-form-urlencoded" role="form" action="{{ route }}" method="{{ method }}" name="form{{ elt_id }}" id="form{{ elt_id }}">
+    {{ body }}
+    <button type="submit" class="btn btn-success send" rel="{{ elt_id }}">Send</button>
+</form>';
+
+        static $sandboxFormInputTpl = '
+<div class="form-group">
+    <input type="text" class="form-control input-sm" id="{{ name }}" placeholder="{{ name }}" name="{{ name }}">
+</div>';
 }
