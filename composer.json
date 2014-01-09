@@ -12,7 +12,7 @@
         }, {
             "name": "Kevin Saliou",
             "email": "kevin@saliou.name"
-        },
+        }
     ],
     "minimum-stability": "dev",
     "require": {
