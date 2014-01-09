@@ -1,4 +1,5 @@
 <?php
+
 namespace Crada\Apidoc\TestClasses;
 
 class Article

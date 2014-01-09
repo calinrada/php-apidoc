@@ -7,10 +7,8 @@ namespace Crada\Apidoc\View;
 use Crada\Apidoc\Exception;
 
 /**
- * Crada\Apidoc\View\BaseView
- *
- * @license   http://opensource.org/licenses/bsd-license.php The BSD License
- * @author    Calin Rada <rada.calin@gmail.com>
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
+ * @author  Calin Rada <rada.calin@gmail.com>
  */
 class BaseView implements ViewInterface
 {
@@ -43,14 +41,12 @@ class BaseView implements ViewInterface
     protected $o_view;
 
     /**
-     * (non-PHPdoc)
-     * @see \Crada\Apidoc\View\ViewInterface::__init()
+     * {@inheritdoc}
      */
     public function __init() {}
 
     /**
-     * Set configuration params from the config file. Injected in
-     * Controller::setView()
+     * Set configuration params from the config file.
      *
      * @param array $st_config
      */
@@ -62,8 +58,8 @@ class BaseView implements ViewInterface
     /**
      * Get config param(s)
      *
-     * @param  string       $s_key
-     * @return string|array
+     * @param  string               $s_key
+     * @return string|array|boolean
      */
     public function getConfig($s_key = null)
     {
@@ -88,8 +84,7 @@ class BaseView implements ViewInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Crada\Apidoc\View\ViewInterface::getTemplate()
+     * {@inheritdoc}
      */
     public function getTemplate()
     {
@@ -121,8 +116,7 @@ class BaseView implements ViewInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Crada\Apidoc\View\ViewInterface::getAll()
+     * {@inheritdoc}
      */
     public function getAll()
     {
@@ -130,16 +124,14 @@ class BaseView implements ViewInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Crada\Apidoc\View\ViewInterface::render()
+     * {@inheritdoc}
      */
     public function render()
     {
         $file = str_replace('\\','/',$this->getTemplate()).'.php';
         if (!file_exists($file)) {
-            throw new Exception("Template " . $file . " doesn't exist.");
+            throw new Exception('Template ' . $file . ' does not exist.');
         }
-
         extract($this->st_data);
         ob_start();
         include($file);

@@ -9,7 +9,10 @@
         {
             "name": "Calin Rada",
             "email": "rada.calin@gmail.com"
-        }
+        }, {
+            "name": "Kevin Saliou",
+            "email": "kevin@saliou.name"
+        },
     ],
     "minimum-stability": "dev",
     "require": {

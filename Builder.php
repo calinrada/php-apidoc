@@ -10,10 +10,8 @@ use Crada\Apidoc\Extractor,
     Crada\Apidoc\Exception;
 
 /**
- * Crada\Apidoc\Builder
- *
- * @license   http://opensource.org/licenses/bsd-license.php The BSD License
- * @author    Calin Rada <rada.calin@gmail.com>
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
+ * @author  Calin Rada <rada.calin@gmail.com>
  */
 class Builder
 {
@@ -22,7 +20,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.3.3';
+    const VERSION = '1.3.4';
 
     /**
      * Classes collection
@@ -85,12 +83,11 @@ class Builder
 
         if (!is_dir($this->_output_dir)) {
             if (!mkdir($this->_output_dir)) {
-                throw new Exception('I can\'t create directory');
+                throw new Exception('Cannot create directory');
             }
         }
-
         if (!file_put_contents($this->_output_dir.'/'.$file, $newContent)) {
-            throw new Exception('I can\'t save the content to '.$this->_output_dir);
+            throw new Exception('Cannot save the content to '.$this->_output_dir);
         }
     }
 
@@ -150,7 +147,8 @@ class Builder
         foreach ($st_params['ApiReturn'] as $params) {
             if (in_array($params['type'], array('object', 'array(object) ', 'array')) && isset($params['sample'])) {
                 $tr = array(
-                    '{{ response }}' => $params['sample'],
+                    '{{ elt_id }}'      => $counter,
+                    '{{ response }}'    => $params['sample'],
                     '{{ description }}' => '',
                 );
                 if (isset($params['description'])) {

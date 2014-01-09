@@ -7,12 +7,11 @@ namespace Crada\Apidoc;
 use Crada\Apidoc\Exception;
 
 /**
- * Crada\Apidoc\Extractor
- *
  * Class imported from https://github.com/eriknyk/Annotations
+ * @author  Erik Amaru Ortiz https://github.com/eriknyk‎
  *
- * @license   http://opensource.org/licenses/bsd-license.php The BSD License
- * @author    Calin Rada <rada.calin@gmail.com>
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
+ * @author  Calin Rada <rada.calin@gmail.com>
  */
 class Extractor
 {

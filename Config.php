@@ -5,10 +5,8 @@
 namespace Crada\Apidoc;
 
 /**
- * Crada\Apidoc\Config
- *
- * @license   http://opensource.org/licenses/bsd-license.php The BSD License
- * @author    Calin Rada <rada.calin@gmail.com>
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
+ * @author  Calin Rada <rada.calin@gmail.com>
  */
 class Config
 {

@@ -5,10 +5,8 @@
 namespace Crada\Apidoc;
 
 /**
- * Crada\Apidoc\Response
- *
- * @license   http://opensource.org/licenses/bsd-license.php The BSD License
- * @author    Calin Rada <rada.calin@gmail.com>
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
+ * @author  Calin Rada <rada.calin@gmail.com>
  */
 class Response
 {
@@ -41,7 +39,7 @@ class Response
      */
     public function closeConection()
     {
-        header ('Connection: close');
+        header('Connection: close');
     }
 
     /**
@@ -51,6 +49,7 @@ class Response
      */
     public function send($data)
     {
-        echo $data; exit(0);
+        echo $data;
+        exit(0);
     }
 }
