@@ -201,12 +201,13 @@ class Builder
      */
     private function generateRouteParametersForm($st_params, $counter)
     {
-        if (!isset($st_params['ApiParams'])) {
-            return;
-        }
         $body = array();
-        foreach ($st_params['ApiParams'] as $params) {
-            $body[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $params['name']));
+        if (is_array($st_params['ApiParams']))
+        {
+            foreach ($st_params['ApiParams'] as $params)
+            {
+                $body[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $params['name']));
+            }
         }
         $tr = array(
             '{{ elt_id }}' => $counter,
