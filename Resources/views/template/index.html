@@ -156,13 +156,14 @@
             };
             var st_headers = {};
             st_headers[$('#apikey_key').val()] = $('#apikey_value').val();
+            serializedData = $(form).serialize().replace(/&?[^=&]+=(&|$)/g,'');
             $.ajax({
                 url: $('#apiUrl').val() + $(form).attr('action'),
-                data: $(form).serialize(),
+                data: serializedData,
                 type: '' + $(form).attr('method') + '',
                 dataType: 'json',
                 headers: st_headers
-            }).done(function(data) {
+            }).done(function(data) 
                 if (typeof data === 'object') {
                     $('#response' + theId).html(JSON.stringify(data));
                 } else {
