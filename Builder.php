@@ -170,9 +170,6 @@ class Builder
      */
     private function generateParamsTemplate($id, $st_params)
     {
-        if (!isset($st_params['ApiParams'])) {
-            return;
-        }
         $body = array();
         foreach ($st_params['ApiParams'] as $params) {
             $tr = array(
