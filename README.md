@@ -86,8 +86,8 @@ $classes = array(
     'Some\Namespace\OtherClass',
 );
 
-$output_dir = __DIR__.'/apidocs';
-$output_dir = 'api.html'; // defaults to index.html
+$output_dir  = __DIR__.'/apidocs';
+$output_file = 'api.html'; // defaults to index.html
 
 try {
     $builder = new Builder($classes, $output_dir, $output_file);
