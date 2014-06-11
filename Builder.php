@@ -118,6 +118,7 @@ class Builder
                     '{{ method }}'          => $this->generateBadgeForMethod($docs),
                     '{{ route }}'           => $docs['ApiRoute'][0]['name'],
                     '{{ description }}'     => $docs['ApiDescription'][0]['description'],
+                    '{{ headers }}'         => $this->generateHeadersTemplate($counter, $docs),
                     '{{ parameters }}'      => $this->generateParamsTemplate($counter, $docs),
                     '{{ sandbox_form }}'    => $this->generateSandboxForm($docs, $counter),
                     '{{ sample_response }}' => $this->generateSampleOutput($docs, $counter),
@@ -159,6 +160,33 @@ class Builder
         }
 
         return implode(PHP_EOL, $ret);
+    }
+
+    /**
+     * Generates the template for headers
+     * @param  int          $id
+     * @param  array        $st_params
+     * @return void|string
+     */
+    private function generateHeadersTemplate($id, $st_params) {
+        if (!isset($st_params['ApiHeaders']))
+        {
+             return;
+        }
+
+        $body = array();
+        foreach ($st_params['ApiHeaders'] as $params) {
+            $tr = array(
+                '{{ name }}'        => $params['name'],
+                '{{ type }}'        => $params['type'],
+                '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
+                '{{ description }}' => @$params['description'],
+            );
+            $body[] = strtr(static::$paramContentTpl, $tr);
+        }
+
+        return strtr(static::$paramTableTpl, array('{{ tbody }}' => implode(PHP_EOL, $body)));
+
     }
 
     /**
@@ -303,9 +331,21 @@ class Builder
             <div class="tab-content">
 
                 <div class="tab-pane active" id="info{{ elt_id }}">
+                    <div class="well">
                     {{ description }}
-                    <hr>
-                    {{ parameters }}
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        {{ headers }}
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        {{ parameters }}
+                      </div>
+                    </div>
                 </div><!-- #info -->
 
                 <div class="tab-pane" id="sandbox{{ elt_id }}">
