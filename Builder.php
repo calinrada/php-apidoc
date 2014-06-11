@@ -202,7 +202,7 @@ class Builder
     private function generateRouteParametersForm($st_params, $counter)
     {
         $body = array();
-        if (is_array($st_params['ApiParams']))
+        if (isset($st_params['ApiParams']) && is_array($st_params['ApiParams']))
         {
             foreach ($st_params['ApiParams'] as $params)
             {
