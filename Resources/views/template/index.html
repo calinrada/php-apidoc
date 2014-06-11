@@ -185,7 +185,8 @@
                 }
                 $('#response' + theId).show();
             }).error(function(xhr, textStatus, error) {
-                $('#response' + theId).html(textStatus);
+                var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
+                $('#response' + theId).html(syntaxHighlight(str));
                 $('#response' + theId).show();
             });
             return false;
