@@ -118,8 +118,9 @@ class Builder
                     '{{ method }}'          => $this->generateBadgeForMethod($docs),
                     '{{ route }}'           => $docs['ApiRoute'][0]['name'],
                     '{{ description }}'     => $docs['ApiDescription'][0]['description'],
+                    '{{ headers }}'         => $this->generateHeadersTemplate($counter, $docs),
                     '{{ parameters }}'      => $this->generateParamsTemplate($counter, $docs),
-                    '{{ sandbox_form }}'    => $this->generateRouteParametersForm($docs, $counter),
+                    '{{ sandbox_form }}'    => $this->generateSandboxForm($docs, $counter),
                     '{{ sample_response }}' => $this->generateSampleOutput($docs, $counter),
                 );
                 $template[] = strtr(static::$mainTpl, $tr);
@@ -162,6 +163,33 @@ class Builder
     }
 
     /**
+     * Generates the template for headers
+     * @param  int          $id
+     * @param  array        $st_params
+     * @return void|string
+     */
+    private function generateHeadersTemplate($id, $st_params) {
+        if (!isset($st_params['ApiHeaders']))
+        {
+             return;
+        }
+
+        $body = array();
+        foreach ($st_params['ApiHeaders'] as $params) {
+            $tr = array(
+                '{{ name }}'        => $params['name'],
+                '{{ type }}'        => $params['type'],
+                '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
+                '{{ description }}' => @$params['description'],
+            );
+            $body[] = strtr(static::$paramContentTpl, $tr);
+        }
+
+        return strtr(static::$paramTableTpl, array('{{ tbody }}' => implode(PHP_EOL, $body)));
+
+    }
+
+    /**
      * Generates the template for parameters
      *
      * @param  int         $id
@@ -199,21 +227,33 @@ class Builder
      * @param  integer    $counter
      * @return void|mixed
      */
-    private function generateRouteParametersForm($st_params, $counter)
+    private function generateSandboxForm($st_params, $counter)
     {
-        $body = array();
-        if (is_array($st_params['ApiParams']))
+        $headers = array();
+        $params = array();
+
+        if (isset($st_params['ApiParams']) && is_array($st_params['ApiParams']))
         {
-            foreach ($st_params['ApiParams'] as $params)
+            foreach ($st_params['ApiParams'] as $param)
             {
-                $body[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $params['name']));
+                $params[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $param['name']));
             }
         }
+
+        if (isset($st_params['ApiHeaders']) && is_array($st_params['ApiHeaders']))
+        {
+            foreach ($st_params['ApiHeaders'] as $header)
+            {
+                $headers[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $header['name']));
+            }
+        }
+
         $tr = array(
             '{{ elt_id }}' => $counter,
             '{{ method }}' => $st_params['ApiMethod'][0]['type'],
             '{{ route }}'  => $st_params['ApiRoute'][0]['name'],
-            '{{ body }}'   => implode(PHP_EOL, $body),
+            '{{ headers }}' => implode(PHP_EOL, $headers),
+            '{{ params }}'   => implode(PHP_EOL, $params),
         );
 
         return strtr(static::$sandboxFormTpl, $tr);
@@ -291,26 +331,35 @@ class Builder
             <div class="tab-content">
 
                 <div class="tab-pane active" id="info{{ elt_id }}">
+                    <div class="well">
                     {{ description }}
-                    <hr>
-                    {{ parameters }}
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Headers</strong></div>
+                      <div class="panel-body">
+                        {{ headers }}
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Parameters</strong></div>
+                      <div class="panel-body">
+                        {{ parameters }}
+                      </div>
+                    </div>
                 </div><!-- #info -->
 
                 <div class="tab-pane" id="sandbox{{ elt_id }}">
                     <div class="row">
-                        <div class="col-md-4">
-                            Parameters
-                            <hr>
-                            {{ sandbox_form }}
+                        <div class="col-md-12">
+                        {{ sandbox_form }}
                         </div>
-                        <div class="col-md-4">
-                            Headers
-                            <hr>Soon...
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             Response
                             <hr>
-                            <code id="response{{ elt_id }}"></code>
+                            <div class="col-md-12" style="overflow-x:auto">
+                                <pre id="response{{ elt_id }}">
+                                </pre>
+                            </div>
                         </div>
                     </div>
                 </div><!-- #sandbox -->
@@ -362,10 +411,21 @@ class Builder
 </a>';
 
         static $sandboxFormTpl = '
+        <div class="col-md-6">
+    Headers
+    <hr/>
+    <div class="headers">
+    {{ headers }}
+    </div>
+    </div>
+    <div class="col-md-6">
 <form enctype="application/x-www-form-urlencoded" role="form" action="{{ route }}" method="{{ method }}" name="form{{ elt_id }}" id="form{{ elt_id }}">
-    {{ body }}
+    
+    Parameters
+    <hr/>
+    {{ params }}
     <button type="submit" class="btn btn-success send" rel="{{ elt_id }}">Send</button>
-</form>';
+</form></div>';
 
         static $sandboxFormInputTpl = '
 <div class="form-group">

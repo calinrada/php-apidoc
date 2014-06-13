@@ -112,6 +112,7 @@ Here is the list of methods available so far :
 * @ApiMethod(type="(get|post|put|delete")
 * @ApiRoute(name="...")
 * @ApiParams(name="...", type="...", nullable=..., description="...", [sample=".."])
+* @ApiHeaders(name="...", type="...", nullable=..., description="...")
 * @ApiReturn(type="...", sample="...")
 
 ### <a id="preview"></a>Preview

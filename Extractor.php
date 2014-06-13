@@ -173,7 +173,7 @@ class Extractor
         // Strip away the docblock header and footer to ease parsing of one line annotations
         $docblock = substr($docblock, 3, -2);
 
-        if (preg_match_all('/@(?<name>[A-Za-z_-]+)[\s\t]*\((?<args>.*)\)[\s\t]*\r?$/m', $docblock, $matches)) {
+        if (preg_match_all('/@(?<name>[A-Za-z_-]+)[\s\t]*\((?<args>(?:(?!"\)).)*")\)\r?/s', $docblock, $matches)) {
             $numMatches = count($matches[0]);
 
             for ($i = 0; $i < $numMatches; ++$i) {
@@ -188,7 +188,6 @@ class Extractor
 
                 $annotations[$name][] = $value;
             }
-
         }
 
         return $annotations;
@@ -202,6 +201,9 @@ class Extractor
      */
     private static function parseArgs($content)
     {
+        // Replace initial stars
+        $content = preg_replace('/^\s*\*/m', '', $content);
+
         $data  = array();
         $len   = strlen($content);
         $i     = 0;
