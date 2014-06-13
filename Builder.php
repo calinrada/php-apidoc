@@ -146,7 +146,7 @@ class Builder
         }
         $ret = array();
         foreach ($st_params['ApiReturn'] as $params) {
-            if (in_array($params['type'], array('object', 'array(object) ', 'array')) && isset($params['sample'])) {
+            if (in_array($params['type'], array('object', 'array(object) ', 'array', 'string', 'boolean', 'integer', 'number')) && isset($params['sample'])) {
                 $tr = array(
                     '{{ elt_id }}'      => $counter,
                     '{{ response }}'    => $params['sample'],
