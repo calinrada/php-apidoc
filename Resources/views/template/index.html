@@ -134,6 +134,7 @@
 
         $('body').on('click', '.send', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             var form = $(this).closest('form');
             var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
             var theId = $(this).attr('rel');
@@ -155,7 +156,7 @@
                 });
             };
             var st_headers = {};
-            
+
             apiKey = $('#apikey_key').val();
             apiKeyValue = $('#apikey_value').val();
 
@@ -163,14 +164,12 @@
                 st_headers[apiKey] = apiKeyValue;
             }
 
-            $(".headers input[type=text]").each(function() {
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
                 val = $(this).val();
                 if(val.length > 0) {
                     st_headers[$(this).prop('name')] = val;
                 }
             });
-
-            console.log(st_headers);
 
             serializedData = $(form).serialize().replace(/&?[^=&]+=(&|$)/g,'');
             $.ajax({
