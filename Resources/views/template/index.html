@@ -164,17 +164,19 @@
 
             var index, key, value;
 
-            for (index = 0; index < matchedParamsInRoute.length; ++index) {
-                try {
-                    key = matchedParamsInRoute[index];
-                    value = serializedData[key];
+            if(matchedParamsInRoute) {
+                for (index = 0; index < matchedParamsInRoute.length; ++index) {
+                    try {
+                        key = matchedParamsInRoute[index];
+                        value = serializedData[key];
 
-                    if(value.length) {
-                        url = url.replace("{" + key + "}", value);
-                        delete serializedData[key];
+                        if(value.length) {
+                            url = url.replace("{" + key + "}", value);
+                            delete serializedData[key];
+                        }
+                    } catch (err) {
+                        console.log(err);
                     }
-                } catch (err) {
-                    console.log(err);
                 }
             }
 
