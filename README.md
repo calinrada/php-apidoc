@@ -136,7 +136,6 @@ I don't know any, but please tell me if you find something. PS: I have tested it
 
 ### <a id="todo"></a>TODO
 
-* Implemend "add headers" functionality for sandbox
 * Implement options for JSONP
 * Implement "add fields" option
 
