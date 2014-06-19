@@ -190,8 +190,6 @@
                 }
             });
 
-            serializedData = $(form).serialize().replace(/&?[^=&]+=(&|$)/g,'');
-
             $.ajax({
                 url: $('#apiUrl').val() + url,
                 data: serializedData,
