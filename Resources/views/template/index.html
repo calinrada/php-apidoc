@@ -136,8 +136,15 @@
             e.preventDefault();
             e.stopPropagation();
             var form = $(this).closest('form');
-            var matchedParamsInRoute = $(form).attr('action').match(/{\w+}$/);
+            //added /g to get all the matched params instead of only first
+            var matchedParamsInRoute = $(form).attr('action').match(/{\w+}/g);
             var theId = $(this).attr('rel');
+            //keep a copy of action attribute in order to modify the copy 
+            //instead of the initial attribute
+            var url = $(form).attr('action');
+            
+            //get form serialized data in order to remove matchedParams
+            var serializedData = $(form).serialize().replace(/&?[^=&]+=(&|$)/g,'');
             if (matchedParamsInRoute) {
                 $("form#" + $(form).attr('id') + " input[type=text]").each(function() {
                     var input = $(this);
@@ -146,8 +153,19 @@
                         try {
                             var tmp = matchedParamsInRoute[index].replace('{', '').replace('}', '');
                             if ($(this).attr('id') == tmp) {
-                                var newFormAction = $(form).attr('action').replace(matchedParamsInRoute[index], $(this).val());
-                                $(form).attr('action', newFormAction);
+                                //if the param is not set remove it from url
+                                if(!$(this).val().length){
+                                    url = url.replace(matchedParamsInRoute[index], "");
+                                    url = url.replace(tmp + "/", "");
+                                } else {
+                                    url = url.replace(matchedParamsInRoute[index], $(this).val());
+                                }
+                                //remove from serialized data
+                                var replaceString =  tmp + "\=([^&]+[&]?)|&(" + tmp + ")\=([^&]+)";
+                                var match = serializedData.match(replaceString);
+                                if(match.length > 0){
+                                    serializedData = serializedData.replace(match[0],'');
+                                }
                             }
                         } catch (err) {
                             console.log(err);
@@ -155,6 +173,7 @@
                     }
                 });
             };
+
             var st_headers = {};
 
             apiKey = $('#apikey_key').val();
@@ -172,8 +191,9 @@
             });
 
             serializedData = $(form).serialize().replace(/&?[^=&]+=(&|$)/g,'');
+
             $.ajax({
-                url: $('#apiUrl').val() + $(form).attr('action'),
+                url: $('#apiUrl').val() + url,
                 data: serializedData,
                 type: '' + $(form).attr('method') + '',
                 dataType: 'json',

@@ -48,7 +48,10 @@ class User
      * @ApiRoute(name="/user/get/{id}")
      * @ApiParams(name="id", type="integer", nullable=false, description="User id")
      * @ApiParams(name="data", type="object", sample="{'user_id':'int','user_name':'string','profile':{'email':'string','age':'integer'}}")
-     * @ApiReturn(type="object", sample="{'transaction_id':'int','transaction_status':'string'}")
+     * @ApiReturn(type="object", sample="{
+     *  'transaction_id':'int',
+     *  'transaction_status':'string'
+     * }")
      */
     public function get()
     {
