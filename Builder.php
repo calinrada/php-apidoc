@@ -113,15 +113,19 @@ class Builder
                 if (0 === count($docs)) {
                     continue;
                 }
+
+                $sampleOutput = $this->generateSampleOutput($docs, $counter);
+
                 $tr = array(
-                    '{{ elt_id }}'          => $counter,
-                    '{{ method }}'          => $this->generateBadgeForMethod($docs),
-                    '{{ route }}'           => $docs['ApiRoute'][0]['name'],
-                    '{{ description }}'     => $docs['ApiDescription'][0]['description'],
-                    '{{ headers }}'         => $this->generateHeadersTemplate($counter, $docs),
-                    '{{ parameters }}'      => $this->generateParamsTemplate($counter, $docs),
-                    '{{ sandbox_form }}'    => $this->generateSandboxForm($docs, $counter),
-                    '{{ sample_response }}' => $this->generateSampleOutput($docs, $counter),
+                    '{{ elt_id }}'                  => $counter,
+                    '{{ method }}'                  => $this->generateBadgeForMethod($docs),
+                    '{{ route }}'                   => $docs['ApiRoute'][0]['name'],
+                    '{{ description }}'             => $docs['ApiDescription'][0]['description'],
+                    '{{ headers }}'                 => $this->generateHeadersTemplate($counter, $docs),
+                    '{{ parameters }}'              => $this->generateParamsTemplate($counter, $docs),
+                    '{{ sandbox_form }}'            => $this->generateSandboxForm($docs, $counter),
+                    '{{ sample_response_headers }}' => $sampleOutput[0],
+                    '{{ sample_response_body }}'    => $sampleOutput[1]
                 );
                 $template[] = strtr(static::$mainTpl, $tr);
                 $counter++;
@@ -141,25 +145,48 @@ class Builder
      */
     private function generateSampleOutput($st_params, $counter)
     {
+
         if (!isset($st_params['ApiReturn'])) {
-            return 'NA';
-        }
-        $ret = array();
-        foreach ($st_params['ApiReturn'] as $params) {
-            if (in_array($params['type'], array('object', 'array(object) ', 'array', 'string', 'boolean', 'integer', 'number')) && isset($params['sample'])) {
-                $tr = array(
-                    '{{ elt_id }}'      => $counter,
-                    '{{ response }}'    => $params['sample'],
-                    '{{ description }}' => '',
-                );
-                if (isset($params['description'])) {
-                    $tr['{{ description }}'] = $params['description'];
-                }
-                $ret[] = strtr(static::$sampleReponseTpl, $tr);
-            }
+            $responseBody = '';
+        } else {
+          $ret = array();
+          foreach ($st_params['ApiReturn'] as $params) {
+              if (in_array($params['type'], array('object', 'array(object) ', 'array', 'string', 'boolean', 'integer', 'number')) && isset($params['sample'])) {
+                  $tr = array(
+                      '{{ elt_id }}'      => $counter,
+                      '{{ response }}'    => $params['sample'],
+                      '{{ description }}' => '',
+                  );
+                  if (isset($params['description'])) {
+                      $tr['{{ description }}'] = $params['description'];
+                  }
+                  $ret[] = strtr(static::$sampleReponseTpl, $tr);
+              }
+          }
+
+          $responseBody = implode(PHP_EOL, $ret);
         }
 
-        return implode(PHP_EOL, $ret);
+        if(!isset($st_params['ApiReturnHeaders'])) {
+          $responseHeaders = '';
+        } else {
+          $ret = array();
+          foreach ($st_params['ApiReturnHeaders'] as $headers) {
+            if(isset($headers['sample'])) {
+              $tr = array(
+                '{{ elt_id }}'      => $counter,
+                '{{ response }}'    => $headers['sample'],
+                '{{ description }}' => ''
+              );
+
+              $ret[] = strtr(static::$sampleReponseHeaderTpl, $tr);
+            }
+          }
+
+          $responseHeaders = implode(PHP_EOL, $ret);
+        }
+
+        return array($responseHeaders, $responseBody);
     }
 
     /**
@@ -357,8 +384,8 @@ class Builder
                             Response
                             <hr>
                             <div class="col-md-12" style="overflow-x:auto">
-                                <pre id="response{{ elt_id }}">
-                                </pre>
+                                <pre id="response_headers{{ elt_id }}"></pre>
+                                <pre id="response{{ elt_id }}"></pre>
                             </div>
                         </div>
                     </div>
@@ -367,7 +394,8 @@ class Builder
                 <div class="tab-pane" id="sample{{ elt_id }}">
                     <div class="row">
                         <div class="col-md-12">
-                            {{ sample_response }}
+                            {{ sample_response_headers }}
+                            {{ sample_response_body }}
                         </div>
                     </div>
                 </div><!-- #sample -->
@@ -381,6 +409,9 @@ class Builder
 {{ description }}
 <hr>
 <pre id="sample_response{{ elt_id }}">{{ response }}</pre>';
+  
+        static $sampleReponseHeaderTpl = '
+<pre id="sample_resp_header{{ elt_id }}">{{ response }}</pre>';
 
         static $paramTableTpl = '
 <table class="table table-hover">

@@ -189,7 +189,7 @@
                 st_headers[apiKey] = apiKeyValue;
             }
 
-            $(".headers input[type=text]").each(function() {
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
                 val = $(this).val();
                 if(val.length > 0) {
                     st_headers[$(this).prop('name')] = val;
@@ -201,19 +201,24 @@
                 data: serializedData,
                 type: $(form).attr('method') + '',
                 dataType: 'json',
-                headers: st_headers
-            }).done(function(data) { 
-                if (typeof data === 'object') {
-                    var str = JSON.stringify(data, null, 2);
+                headers: st_headers,
+                success: function(data, textStatus, xhr) {
+                    if (typeof data === 'object') {
+                        var str = JSON.stringify(data, null, 2);
+                        $('#response' + theId).html(syntaxHighlight(str));
+                    } else {
+                        $('#response' + theId).html(data);
+                    }
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
+                    $('#response' + theId).show();
+                },
+                error: function(xhr, textStatus, error) {
+                    var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
+                    $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
                     $('#response' + theId).html(syntaxHighlight(str));
-                } else {
-                    $('#response' + theId).html(data);
+                    $('#response' + theId).show();
+
                 }
-                $('#response' + theId).show();
-            }).error(function(xhr, textStatus, error) {
-                var str = JSON.stringify($.parseJSON(xhr.responseText), null, 2);
-                $('#response' + theId).html(syntaxHighlight(str));
-                $('#response' + theId).show();
             });
             return false;
         });

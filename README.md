@@ -48,6 +48,7 @@ class User
      * @ApiRoute(name="/user/get/{id}")
      * @ApiParams(name="id", type="integer", nullable=false, description="User id")
      * @ApiParams(name="data", type="object", sample="{'user_id':'int','user_name':'string','profile':{'email':'string','age':'integer'}}")
+     * @ApiReturnHeaders(sample="HTTP 200 OK")
      * @ApiReturn(type="object", sample="{
      *  'transaction_id':'int',
      *  'transaction_status':'string'
@@ -116,6 +117,7 @@ Here is the list of methods available so far :
 * @ApiRoute(name="...")
 * @ApiParams(name="...", type="...", nullable=..., description="...", [sample=".."])
 * @ApiHeaders(name="...", type="...", nullable=..., description="...")
+* @ApiReturnHeaders(sample="...")
 * @ApiReturn(type="...", sample="...")
 
 ### <a id="preview"></a>Preview

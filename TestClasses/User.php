@@ -8,6 +8,7 @@ class User
      * @ApiDescription(section="User", description="Get information about user")
      * @ApiMethod(type="get")
      * @ApiRoute(name="/user/get/{id}")
+     * @ApiReturnHeaders(sample="HTTP 200 OK")
      * @ApiReturn(type="object", sample="{'user_id':'int','external_id':'int','extra':{'type':'integer'}}")
      */
     public function get()
