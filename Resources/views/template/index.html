@@ -189,7 +189,7 @@
                 st_headers[apiKey] = apiKeyValue;
             }
 
-            $(".headers input[type=text]").each(function() {
+            $("#sandbox" + theId + " .headers input[type=text]").each(function() {
                 val = $(this).val();
                 if(val.length > 0) {
                     st_headers[$(this).prop('name')] = val;
