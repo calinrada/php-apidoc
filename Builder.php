@@ -134,7 +134,8 @@ class Builder
         $output = '';
 
         foreach ($template as $key => $value) {
-          $output .= implode(PHP_EOL,  array_merge(['<h2>' . $key . '</h2>'], $value));
+          array_unshift($value, '<h2>' . $key . '</h2>');
+          $output .= implode(PHP_EOL, $value);
         }
 
         $this->saveTemplate($output, $this->_output_file);
