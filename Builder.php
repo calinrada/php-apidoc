@@ -106,9 +106,8 @@ class Builder
 
         foreach ($st_annotations as $class => $methods) {
             foreach ($methods as $name => $docs) {
-                if (isset($docs['ApiDescription'][0]['section']) && $docs['ApiDescription'][0]['section'] !== $section) {
-                    $section = $docs['ApiDescription'][0]['section'];
-                    $template[] = '<h2>'.$section.'</h2>';
+                if (isset($docs['ApiDescription'][0]['section'])) {
+                  $section = $docs['ApiDescription'][0]['section'];
                 }
                 if (0 === count($docs)) {
                     continue;
@@ -127,11 +126,18 @@ class Builder
                     '{{ sample_response_headers }}' => $sampleOutput[0],
                     '{{ sample_response_body }}'    => $sampleOutput[1]
                 );
-                $template[] = strtr(static::$mainTpl, $tr);
+                $template[$section][] = strtr(static::$mainTpl, $tr);
                 $counter++;
             }
         }
-        $this->saveTemplate(implode(PHP_EOL, $template), $this->_output_file);
+
+        $output = '';
+
+        foreach ($template as $key => $value) {
+          $output .= implode(PHP_EOL,  array_merge(['<h2>' . $key . '</h2>'], $value));
+        }
+
+        $this->saveTemplate($output, $this->_output_file);
 
         return true;
     }
