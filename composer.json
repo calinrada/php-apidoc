@@ -12,6 +12,9 @@
         }, {
             "name": "Kevin Saliou",
             "email": "kevin@saliou.name"
+        }, {
+            "name": "Borja Santos-Diez",
+            "email": "borja@santosdiez.es"
         }
     ],
     "minimum-stability": "dev",
