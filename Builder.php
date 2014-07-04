@@ -37,6 +37,12 @@ class Builder
     private $_output_dir;
 
     /**
+     * Title to be displayed
+     * @var string
+     */
+    private $_title;
+
+    /**
      * Output filename for documentation
      *
      * @var string
@@ -48,10 +54,11 @@ class Builder
      *
      * @param array $st_classes
      */
-    public function __construct(array $st_classes, $s_output_dir, $s_output_file = 'index.html')
+    public function __construct(array $st_classes, $s_output_dir, $title = 'php-apidoc', $s_output_file = 'index.html')
     {
         $this->_st_classes = $st_classes;
         $this->_output_dir = $s_output_dir;
+        $this->_title = $title;
         $this->_output_file = $s_output_file;
     }
 
@@ -76,6 +83,7 @@ class Builder
 
         $tr = array(
             '{{ content }}' => $data,
+            '{{ title }}' => $this->_title,
             '{{ date }}'    => date('Y-m-d, H:i:s'),
             '{{ version }}' => static::VERSION,
         );
