@@ -279,7 +279,7 @@ class Builder
 
       $body = $docs['ApiBody'][0];
 
-      return strstr(static::samplePostBodyTpl, array(
+      return strstr(static::$samplePostBodyTpl, array(
         '{{ elt_id }}' => $id,
         '{{ body }}' => $body['sample']
       ));
