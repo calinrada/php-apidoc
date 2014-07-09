@@ -279,9 +279,9 @@ class Builder
 
       $body = $docs['ApiBody'][0];
 
-      return strstr(static::$samplePostBodyTpl, array(
+      return strtr(static::$samplePostBodyTpl, array(
         '{{ elt_id }}' => $id,
-        '{{ body }}' => implode(PHP_EOL, $body['sample'])
+        '{{ body }}' => $body['sample']
       ));
 
     }
