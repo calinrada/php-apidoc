@@ -81,9 +81,7 @@ class Extractor
         $class = new \ReflectionClass($className);
 
         foreach ($class->getMethods() as $object) {
-            if ($object->class == $className) {
-                self::$annotationCache['annotations'][$className][$object->name] = self::getMethodAnnotations($className, $object->name);
-            }
+            self::$annotationCache['annotations'][$className][$object->name] = self::getMethodAnnotations($className, $object->name);
         }
 
         return self::$annotationCache['annotations'];
@@ -161,12 +159,6 @@ class Extractor
         return $objects;
     }
 
-    /**
-     * Merge class annotation and method annotation
-     * @param  string $docblockMethod  method docblock
-     * @param  string $dockblockClass  class dockblock
-     * @return array                 annotations parsed
-     */
     private static function consolidateAnnotations ($docblockMethod, $dockblockClass)
     {
         $methodAnnotations = self::parseAnnotations($docblockMethod);
