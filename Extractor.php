@@ -161,6 +161,12 @@ class Extractor
         return $objects;
     }
 
+    /**
+     * Merge class annotation and method annotation
+     * @param  string $docblockMethod  method docblock
+     * @param  string $dockblockClass  class dockblock
+     * @return array                 annotations parsed
+     */
     private static function consolidateAnnotations ($docblockMethod, $dockblockClass)
     {
         $methodAnnotations = self::parseAnnotations($docblockMethod);
