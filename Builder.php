@@ -116,6 +116,10 @@ class Builder
             foreach ($methods as $name => $docs) {
                 if (isset($docs['ApiDescription'][0]['section'])) {
                   $section = $docs['ApiDescription'][0]['section'];
+                }elseif(isset($docs['ApiSector'][0]['name'])){
+                    $section = $docs['ApiSector'][0]['name'];
+                }else{
+                    $section = $class;
                 }
                 if (0 === count($docs)) {
                     continue;
