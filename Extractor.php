@@ -101,7 +101,8 @@ class Extractor
         if (!isset(self::$annotationCache[$className . '::' . $methodName])) {
             try {
                 $method = new \ReflectionMethod($className, $methodName);
-                $annotations = self::parseAnnotations($method->getDocComment());
+                $class = new \ReflectionClass($className);
+                $annotations = self::consolidateAnnotations($method->getDocComment(), $class->getDocComment());
             } catch (\ReflectionException $e) {
                 $annotations = array();
             }
@@ -159,6 +160,26 @@ class Extractor
 
         return $objects;
     }
+
+    private static function consolidateAnnotations ($docblockMethod, $dockblockClass)
+    {
+        $methodAnnotations = self::parseAnnotations($docblockMethod);
+        $classAnnotations = self::parseAnnotations($dockblockClass);
+
+        foreach($classAnnotations as $name => $valueClass) {
+            if(count($valueClass) === 1 && in_array($name, array('ApiRoute'))) {
+                if(isset($methodAnnotations[$name])) {
+                    foreach($methodAnnotations[$name] as $key => $valueMethod) {
+                        $methodAnnotations[$name][$key]['name'] = $valueClass[0]['name'].$valueMethod['name'];
+                    }
+                }
+            }
+        }
+
+        return $methodAnnotations;
+    }
+
+
 
     /**
      * Parse annotations
