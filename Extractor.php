@@ -162,15 +162,27 @@ class Extractor
     private static function consolidateAnnotations ($docblockMethod, $dockblockClass)
     {
         $methodAnnotations = self::parseAnnotations($docblockMethod);
-        $classAnnotations = self::parseAnnotations($dockblockClass);
+        $classAnnotations  = self::parseAnnotations($dockblockClass);
 
-        foreach($classAnnotations as $name => $valueClass) {
-            if(count($valueClass) === 1 && in_array($name, array('ApiRoute'))) {
-                if(isset($methodAnnotations[$name])) {
-                    foreach($methodAnnotations[$name] as $key => $valueMethod) {
-                        $methodAnnotations[$name][$key]['name'] = $valueClass[0]['name'].$valueMethod['name'];
+        if(count($methodAnnotations) === 0) {
+            return array();
+        }
+
+        foreach ($classAnnotations as $name => $valueClass) {
+            if (count($valueClass) !== 1) {
+                continue;
+            }
+
+            if ($name === 'ApiRoute') {
+                if (isset($methodAnnotations[$name])) {
+                    foreach ($methodAnnotations[$name] as $key => $valueMethod) {
+                        $methodAnnotations[$name][$key]['name'] = $valueClass[0]['name'] . $valueMethod['name'];
                     }
                 }
+            }
+
+            if($name === 'ApiSector') {
+                $methodAnnotations[$name] = $valueClass;
             }
         }
 
