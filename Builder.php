@@ -281,7 +281,7 @@ class Builder
 
       return strstr(static::samplePostBodyTpl, array(
         '{{ elt_id }}' => $id,
-        '{{ body }}' => $body
+        '{{ body }}' => $body['sample']
       ));
 
     }
