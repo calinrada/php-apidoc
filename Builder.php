@@ -281,7 +281,7 @@ class Builder
 
       return strstr(static::$samplePostBodyTpl, array(
         '{{ elt_id }}' => $id,
-        '{{ body }}' => $body['sample']
+        '{{ body }}' => implode(PHP_EOL, $body['sample'])
       ));
 
     }
