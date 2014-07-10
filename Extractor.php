@@ -81,9 +81,7 @@ class Extractor
         $class = new \ReflectionClass($className);
 
         foreach ($class->getMethods() as $object) {
-            if ($object->class == $className) {
-                self::$annotationCache['annotations'][$className][$object->name] = self::getMethodAnnotations($className, $object->name);
-            }
+            self::$annotationCache['annotations'][$className][$object->name] = self::getMethodAnnotations($className, $object->name);
         }
 
         return self::$annotationCache['annotations'];
@@ -101,7 +99,8 @@ class Extractor
         if (!isset(self::$annotationCache[$className . '::' . $methodName])) {
             try {
                 $method = new \ReflectionMethod($className, $methodName);
-                $annotations = self::parseAnnotations($method->getDocComment());
+                $class = new \ReflectionClass($className);
+                $annotations = self::consolidateAnnotations($method->getDocComment(), $class->getDocComment());
             } catch (\ReflectionException $e) {
                 $annotations = array();
             }
@@ -159,6 +158,38 @@ class Extractor
 
         return $objects;
     }
+
+    private static function consolidateAnnotations ($docblockMethod, $dockblockClass)
+    {
+        $methodAnnotations = self::parseAnnotations($docblockMethod);
+        $classAnnotations  = self::parseAnnotations($dockblockClass);
+
+        if(count($methodAnnotations) === 0) {
+            return array();
+        }
+
+        foreach ($classAnnotations as $name => $valueClass) {
+            if (count($valueClass) !== 1) {
+                continue;
+            }
+
+            if ($name === 'ApiRoute') {
+                if (isset($methodAnnotations[$name])) {
+                    foreach ($methodAnnotations[$name] as $key => $valueMethod) {
+                        $methodAnnotations[$name][$key]['name'] = $valueClass[0]['name'] . $valueMethod['name'];
+                    }
+                }
+            }
+
+            if($name === 'ApiSector') {
+                $methodAnnotations[$name] = $valueClass;
+            }
+        }
+
+        return $methodAnnotations;
+    }
+
+
 
     /**
      * Parse annotations
