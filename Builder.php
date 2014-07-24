@@ -27,39 +27,50 @@ class Builder
      *
      * @var array
      */
-    private $_st_classes;
+    protected $_st_classes;
 
     /**
      * Output directory for documentation
      *
      * @var string
      */
-    private $_output_dir;
+    protected $_output_dir;
 
     /**
      * Title to be displayed
      * @var string
      */
-    private $_title;
+    protected $_title;
 
     /**
      * Output filename for documentation
      *
      * @var string
      */
-    private $_output_file;
+    protected $_output_file;
+    
+    /**
+     * Template file path
+     * @var string
+     **/
+    protected $template_path   = null;
 
     /**
      * Constructor
      *
      * @param array $st_classes
      */
-    public function __construct(array $st_classes, $s_output_dir, $title = 'php-apidoc', $s_output_file = 'index.html')
+    public function __construct(array $st_classes, $s_output_dir, $title = 'php-apidoc', $s_output_file = 'index.html', $template_path = null)
     {
         $this->_st_classes = $st_classes;
         $this->_output_dir = $s_output_dir;
         $this->_title = $title;
         $this->_output_file = $s_output_file;
+
+        if (!$template_path) {
+             $template_path = __DIR__.'/Resources/views/template/index.html';
+        }
+        $this->template_path = $template_path;
     }
 
     /**
@@ -67,7 +78,7 @@ class Builder
      *
      * @return array
      */
-    private function extractAnnotations()
+    protected function extractAnnotations()
     {
         foreach ($this->_st_classes as $class) {
             $st_output[] = Extractor::getAllClassAnnotations($class);
@@ -76,10 +87,9 @@ class Builder
         return end($st_output);
     }
 
-    private function saveTemplate($data, $file)
+    protected function saveTemplate($data, $file)
     {
-        $template   = __DIR__.'/Resources/views/template/index.html';
-        $oldContent = file_get_contents($template);
+        $oldContent = file_get_contents($this->template_path);
 
         $tr = array(
             '{{ content }}' => $data,
@@ -104,7 +114,7 @@ class Builder
      *
      * @return boolean
      */
-    private function generateTemplate()
+    protected function generateTemplate()
     {
         $st_annotations = $this->extractAnnotations();
 
@@ -162,7 +172,7 @@ class Builder
      * @param  integer $counter
      * @return string
      */
-    private function generateSampleOutput($st_params, $counter)
+    protected function generateSampleOutput($st_params, $counter)
     {
 
         if (!isset($st_params['ApiReturn'])) {
@@ -214,7 +224,8 @@ class Builder
      * @param  array        $st_params
      * @return void|string
      */
-    private function generateHeadersTemplate($id, $st_params) {
+    protected function generateHeadersTemplate($id, $st_params)
+    {
         if (!isset($st_params['ApiHeaders']))
         {
              return;
@@ -242,7 +253,7 @@ class Builder
      * @param  array       $st_params
      * @return void|string
      */
-    private function generateParamsTemplate($id, $st_params)
+    protected function generateParamsTemplate($id, $st_params)
     {
         if (!isset($st_params['ApiParams']))
         {
@@ -273,7 +284,7 @@ class Builder
      * @param  integer    $counter
      * @return void|mixed
      */
-    private function generateSandboxForm($st_params, $counter)
+    protected function generateSandboxForm($st_params, $counter)
     {
         $headers = array();
         $params = array();
@@ -311,7 +322,7 @@ class Builder
      * @param  array  $data
      * @return string
      */
-    private function generateBadgeForMethod($data)
+    protected function generateBadgeForMethod($data)
     {
         $method = strtoupper($data['ApiMethod'][0]['type']);
         $st_labels = array(
