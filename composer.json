@@ -1,5 +1,5 @@
 {
-    "name": "ruifil/php-apidoc",
+    "name": "crada/php-apidoc",
     "type": "library",
     "description": "Generate documentation for php API based application. No dependency. No framework required.",
     "keywords": ["php","api","documentation","generator"],
