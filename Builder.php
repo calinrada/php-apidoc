@@ -329,7 +329,8 @@ class Builder
             'POST'   => 'label-primary',
             'GET'    => 'label-success',
             'PUT'    => 'label-warning',
-            'DELETE' => 'label-danger'
+            'DELETE' => 'label-danger',
+            'OPTIONS'=> 'label-info'
         );
 
         return '<span class="label '.$st_labels[$method].'">'.$method.'</span>';
