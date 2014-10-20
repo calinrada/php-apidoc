@@ -133,7 +133,7 @@
 
         $('code[id^=response]').hide();
 
-        $.each($('pre[id^=sample_response]'), function() {
+        $.each($('pre[id^=sample_response],pre[id^=sample_post_body]'), function() {
             if ($(this).html() == 'NA') {
                 return;
             }
