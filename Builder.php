@@ -144,6 +144,7 @@ class Builder
                     '{{ description }}'             => $docs['ApiDescription'][0]['description'],
                     '{{ headers }}'                 => $this->generateHeadersTemplate($counter, $docs),
                     '{{ parameters }}'              => $this->generateParamsTemplate($counter, $docs),
+                    '{{ body }}'                    => $this->generateBodyTemplate($counter, $docs),
                     '{{ sandbox_form }}'            => $this->generateSandboxForm($docs, $counter),
                     '{{ sample_response_headers }}' => $sampleOutput[0],
                     '{{ sample_response_body }}'    => $sampleOutput[1]
@@ -278,6 +279,29 @@ class Builder
     }
 
     /**
+     * Generate POST body template
+     * 
+     * @param  int      $id
+     * @param  array    $body
+     * @return void|string
+     */
+    private function generateBodyTemplate($id, $docs)
+    {
+      if (!isset($docs['ApiBody']))
+      {
+        return;
+      }
+
+      $body = $docs['ApiBody'][0];
+
+      return strtr(static::$samplePostBodyTpl, array(
+        '{{ elt_id }}' => $id,
+        '{{ body }}' => $body['sample']
+      ));
+
+    }
+
+    /**
      * Generate route paramteres form
      *
      * @param  array      $st_params
@@ -404,6 +428,12 @@ class Builder
                         {{ parameters }}
                       </div>
                     </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><strong>Body</strong></div>
+                      <div class="panel-body">
+                        {{ body }}
+                      </div>
+                    </div>
                 </div><!-- #info -->
 
                 <div class="tab-pane" id="sandbox{{ elt_id }}">
@@ -435,6 +465,8 @@ class Builder
         </div>
     </div>
 </div>';
+
+static $samplePostBodyTpl = '<pre id="sample_post_body{{ elt_id }}">{{ body }}</pre>';
 
         static $sampleReponseTpl = '
 {{ description }}
