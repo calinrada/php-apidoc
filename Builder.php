@@ -269,7 +269,7 @@ class Builder
                 '{{ nullable }}'    => @$params['nullable'] == '1' ? 'No' : 'Yes',
                 '{{ description }}' => @$params['description'],
             );
-            if (in_array($params['type'], array('object', 'array(object) ', 'array')) && isset($params['sample'])) {
+            if (isset($params['sample'])) {
                 $tr['{{ type }}'].= ' '.strtr(static::$paramSampleBtnTpl, array('{{ sample }}' => $params['sample']));
             }
             $body[] = strtr(static::$paramContentTpl, $tr);
@@ -500,7 +500,7 @@ static $samplePostBodyTpl = '<pre id="sample_post_body{{ elt_id }}">{{ body }}</
 </tr>';
 
         static $paramSampleBtnTpl = '
-<a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample object" data-content="{{ sample }}">
+<a href="javascript:void(0);" data-toggle="popover" data-placement="bottom" title="Sample" data-content="{{ sample }}">
     <i class="btn glyphicon glyphicon-exclamation-sign"></i>
 </a>';
 
