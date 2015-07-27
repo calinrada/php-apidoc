@@ -317,7 +317,7 @@ class Builder
         {
             foreach ($st_params['ApiParams'] as $param)
             {
-                $params[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $param['name']));
+                $params[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $param['name'], '{{ description }}' => $param['description'], '{{ sample }}' => $param['sample']));
             }
         }
 
@@ -523,6 +523,7 @@ static $samplePostBodyTpl = '<pre id="sample_post_body{{ elt_id }}">{{ body }}</
 
         static $sandboxFormInputTpl = '
 <div class="form-group">
-    <input type="text" class="form-control input-sm" id="{{ name }}" placeholder="{{ name }}" name="{{ name }}">
+    <label class="control-label" for="{{ name }}">{{ name }}</label>
+    <input type="text" class="form-control input-sm" id="{{ name }}" placeholder="{{ description }} - Ex: {{ sample }}" name="{{ name }}">
 </div>';
 }
