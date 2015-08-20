@@ -258,7 +258,7 @@
                         var str = JSON.stringify(data, null, 2);
                         $('#response' + theId).html(syntaxHighlight(str));
                     } else {
-                        $('#response' + theId).html(data);
+                        $('#response' + theId).html(data || '');
                     }
                     $('#response_headers' + theId).html('HTTP ' + xhr.status + ' ' + xhr.statusText + '<br/><br/>' + xhr.getAllResponseHeaders());
                     $('#response' + theId).show();
