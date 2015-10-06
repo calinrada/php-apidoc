@@ -119,6 +119,7 @@ Here is the list of methods available so far :
 * @ApiHeaders(name="...", type="...", nullable=..., description="...")
 * @ApiReturnHeaders(sample="...")
 * @ApiReturn(type="...", sample="...")
+* @ApiBody(sample="...")
 
 ### <a id="preview"></a>Preview
 
