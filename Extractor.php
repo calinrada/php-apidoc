@@ -252,10 +252,10 @@ class Extractor
         $tokens        = array('"', '"', '{', '}', ',', '=');
 
         while ($i <= $len) {
+            $prev_c = substr($content, $i -1, 1);
             $c = substr($content, $i++, 1);
 
-            //if ($c === '\'' || $c === '"') {
-            if ($c === '"') {
+            if ($c === '"' && $prev_c !== "\\") {
                 $delimiter = $c;
                 //open delimiter
                 if (!$composing && empty($prevDelimiter) && empty($nextDelimiter)) {
@@ -272,9 +272,9 @@ class Extractor
                         ));
                     }
 
-                    // validating sintax
+                    // validating syntax
                     if ($i < $len) {
-                        if (',' !== substr($content, $i, 1)) {
+                        if (',' !== substr($content, $i, 1) && '\\' !== $prev_c) {
                             throw new Exception(sprintf(
                                 "Parse Error: missing comma separator near: ...%s<--",
                                 substr($content, ($i-10), $i)
@@ -382,7 +382,7 @@ class Extractor
             if ($trim) {
                 $val = trim($val);
             }
-
+            $val = stripslashes($val);
             $tmp = strtolower($val);
 
             if ($tmp === 'false' || $tmp === 'true') {
