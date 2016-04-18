@@ -354,6 +354,7 @@ class Builder
             'GET'    => 'label-success',
             'PUT'    => 'label-warning',
             'DELETE' => 'label-danger',
+            'PATCH'  => 'label-default',
             'OPTIONS'=> 'label-info'
         );
 
