@@ -113,7 +113,7 @@ $ php apidoc.php
 Here is the list of methods available so far :
 
 * @ApiDescription(section="...", description="...")
-* @ApiMethod(type="(get|post|put|delete")
+* @ApiMethod(type="(get|post|put|delete|patch")
 * @ApiRoute(name="...")
 * @ApiParams(name="...", type="...", nullable=..., description="...", [sample=".."])
 * @ApiHeaders(name="...", type="...", nullable=..., description="...")
