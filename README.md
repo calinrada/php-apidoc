@@ -18,7 +18,7 @@ PHP >= 5.3.2
 
 ### <a id="installation"></a>Installation
 
-The recommended installation is via compososer. Just add the following line to your composer.json:
+The recommended installation is via composer. Just add the following line to your composer.json:
 
 ```json
 {
