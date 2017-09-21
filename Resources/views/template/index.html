@@ -214,8 +214,15 @@
             //instead of the initial attribute
             var url = $(form).attr('action');
 
-            //get form serialized data in order to remove matchedParams
-            var serializedData = $(form).serializeObject();
+            var serializedData = new FormData();
+
+            $(form).find('input').each(function (i, input) {
+                if ($(input).attr('type') == 'file') {
+                    serializedData.append($(input).attr('name'), $(input)[0].files[0]);
+                } else {
+                    serializedData.append($(input).attr('name'), $(input).val())
+                }
+            });
 
             var index, key, value;
 
@@ -260,6 +267,8 @@
                 data: serializedData,
                 type: $(form).attr('method') + '',
                 dataType: 'json',
+                contentType: false,
+                processData: false,
                 headers: st_headers,
                 success: function(data, textStatus, xhr) {
                     if (typeof data === 'object') {
