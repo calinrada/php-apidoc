@@ -48,7 +48,7 @@ class Builder
      * @var string
      */
     protected $_output_file;
-    
+
     /**
      * Template file path
      * @var string
@@ -260,7 +260,7 @@ class Builder
         {
              return;
         }
-        
+
         $body = array();
         foreach ($st_params['ApiParams'] as $params) {
             $tr = array(
@@ -280,7 +280,7 @@ class Builder
 
     /**
      * Generate POST body template
-     * 
+     *
      * @param  int      $id
      * @param  array    $body
      * @return void|string
@@ -325,7 +325,7 @@ class Builder
         {
             foreach ($st_params['ApiHeaders'] as $header)
             {
-                $headers[] = strtr(static::$sandboxFormInputTpl, array('{{ type }}' => $header['type'], '{{ name }}' => $header['name'], '{{ description }}' => $header['description'], '{{ sample }}' => $header['sample']));
+                $headers[] = strtr(static::$sandboxFormInputTpl, array('{{ type }}' => 'text', '{{ name }}' => $header['name'], '{{ description }}' => $header['description'], '{{ sample }}' => $header['sample']));
             }
         }
 
@@ -473,7 +473,7 @@ static $samplePostBodyTpl = '<pre id="sample_post_body{{ elt_id }}">{{ body }}</
 {{ description }}
 <hr>
 <pre id="sample_response{{ elt_id }}">{{ response }}</pre>';
-  
+
         static $sampleReponseHeaderTpl = '
 <pre id="sample_resp_header{{ elt_id }}">{{ response }}</pre>';
 
@@ -515,7 +515,7 @@ static $samplePostBodyTpl = '<pre id="sample_post_body{{ elt_id }}">{{ body }}</
     </div>
     <div class="col-md-6">
 <form enctype="application/x-www-form-urlencoded" role="form" action="{{ route }}" method="{{ method }}" name="form{{ elt_id }}" id="form{{ elt_id }}">
-    
+
     Parameters
     <hr/>
     {{ params }}

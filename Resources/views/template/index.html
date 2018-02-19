@@ -56,7 +56,7 @@
                     <input type="text" class="form-control input-sm" placeholder="Password" id="basic_auth_password">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-success btn-sm tooltipP" data-toggle="tooltip" title="Save API key and Basic Auth data in localstorage" id="save_auth_data">
+                    <button type="button" class="btn btn-success btn-sm tooltipP" data-toggle="tooltip" title="Save API key, Basic Auth data and API url in localstorage" id="save_auth_data">
                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -160,6 +160,7 @@
             $('#basic_auth_password').val(storage.getItem('basicAuthPassword'));
             $('#apikey_key').val(storage.getItem('apiKey'));
             $('#apikey_value').val(storage.getItem('apiKeyValue'));
+            $('#apiUrl').val(storage.getItem('apiUrl'));
         }
 
         $('#php-apidoctab a').click(function(e) {
@@ -199,6 +200,7 @@
                 storage.setItem('basicAuthPassword', $('#basic_auth_password').val());
                 storage.setItem('apiKey', $('#apikey_key').val());
                 storage.setItem('apiKeyValue', $('#apikey_value').val());
+                storage.setItem('apiUrl', $('#apiUrl').val());
             } else {
                 alert('Your browser does not support local storage');
             }
@@ -264,7 +266,7 @@
 
             $.ajax({
                 url: $('#apiUrl').val() + url,
-                data: serializedData,
+                data: $(form).attr('method') == 'get' ? $(form).serialize() : serializedData,
                 type: $(form).attr('method') + '',
                 dataType: 'json',
                 contentType: false,
