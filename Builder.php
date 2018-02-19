@@ -20,7 +20,7 @@ class Builder
      *
      * @var string
      */
-    const VERSION = '1.3.4';
+    const VERSION = '1.3.6';
 
     /**
      * Classes collection
@@ -325,7 +325,7 @@ class Builder
         {
             foreach ($st_params['ApiHeaders'] as $header)
             {
-                $headers[] = strtr(static::$sandboxFormInputTpl, array('{{ name }}' => $header['name']));
+                $headers[] = strtr(static::$sandboxFormInputTpl, array('{{ type }}' => $header['type'], '{{ name }}' => $header['name'], '{{ description }}' => $header['description'], '{{ sample }}' => $header['sample']));
             }
         }
 
